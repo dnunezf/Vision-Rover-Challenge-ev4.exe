@@ -1,0 +1,5 @@
+firmware/config.py
+grabaciones/
+__pycache__/
+*.pyc
+.vscode/
