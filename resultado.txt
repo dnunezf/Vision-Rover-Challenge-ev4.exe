@@ -1,0 +1,2540 @@
+﻿estado: ESPERANDO -> IR_APROX | cubo: green
+estado: ESPERANDO -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 8.74
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 4.27
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.52
+postergo green tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.5
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 7.01
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 4.26
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 3.4
+postergo red tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: EMPUJAR -> IR_APROX | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 2.31
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 3.48
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 2.27
+postergo blue tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 1.41
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+corrida   1: 3 cubos, ·ltimo a 84.9 s
+estado: ESPERANDO -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ESPERANDO -> IR_APROX | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 3.57
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.89
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 7.9
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.12
+postergo green tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 2.69
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 3.77
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 2.77
+postergo blue tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 1.87
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+postergo red tras 3 intentos
+estado: EMPUJAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: EMPUJAR -> IR_APROX | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+estado: EMPUJAR -> IR_APROX | cubo: blue
+postergo blue tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 3.84
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 3.06
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 2.42
+postergo red tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+corrida   2: 3 cubos, ·ltimo a 96.4 s
+estado: ESPERANDO -> IR_APROX | cubo: blue
+estado: ESPERANDO -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 3.06
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 2.22
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 1.55
+postergo blue tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 3.27
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 1.83
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 1.09
+postergo red tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 3.61
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.85
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.1
+postergo green tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: EMPUJAR -> IR_APROX | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 1.68
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+corrida   3: 3 cubos, ·ltimo a 54.1 s
+estado: ESPERANDO -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ESPERANDO -> IR_APROX | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 3.45
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.85
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 7.99
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 3.87
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 2.76
+postergo red tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+postergo green tras 3 intentos
+estado: EMPUJAR -> IR_APROX | cubo: None
+no entr¾: green falta 0.28
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> IR_APROX | cubo: red
+estado: EMPUJAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+estado: EMPUJAR -> IR_APROX | cubo: red
+postergo red tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> LISTO | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 5.95
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 3.62
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 2.75
+postergo blue tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+corrida   4: 3 cubos, ·ltimo a 121.9 s
+estado: ESPERANDO -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ESPERANDO -> IR_APROX | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 3.84
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 3.38
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 4.1
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.63
+postergo green tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 3.27
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 2.5
+postergo blue tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 4.28
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 3.35
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 2.58
+postergo red tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+estado: EMPUJAR -> IR_APROX | cubo: blue
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+ENTREGADO blue | restan 553 s
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: red
+corrida   5: 3 cubos, ·ltimo a 55.2 s
+estado: ESPERANDO -> IR_APROX | cubo: green
+estado: ESPERANDO -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 5.43
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 6.54
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 3.52
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.52
+postergo green tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 4.01
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 4.65
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 2.98
+postergo blue tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 2.19
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 1.91
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 1.2
+postergo red tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> IR_APROX | cubo: red
+corrida   6: 3 cubos, ·ltimo a 66.8 s
+estado: ESPERANDO -> IR_APROX | cubo: green
+estado: ESPERANDO -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 4.2
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 2.57
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 3.46
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 1.95
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 1.11
+postergo blue tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 4.92
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 2.58
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 1.69
+postergo red tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+postergo green tras 3 intentos
+estado: EMPUJAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> IR_APROX | cubo: green
+estado: EMPUJAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: IR_APROX -> LISTO | cubo: None
+estado: ALINEAR -> EMPUJAR | cubo: red
+corrida   7: 3 cubos, ·ltimo a 77.8 s
+estado: ESPERANDO -> IR_APROX | cubo: blue
+estado: ESPERANDO -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 5.95
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 3.24
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 2.46
+postergo blue tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.92
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.12
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 1.37
+postergo green tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: EMPUJAR -> IR_APROX | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: IR_APROX -> LISTO | cubo: None
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+postergo red tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 6.32
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 3.89
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 3.1
+postergo red tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 2.43
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+corrida   8: 3 cubos, ·ltimo a 137.1 s
+estado: ESPERANDO -> IR_APROX | cubo: red
+estado: ESPERANDO -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 6.12
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 2.96
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 2.2
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 1.14
+postergo blue tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 3.54
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 2.73
+postergo red tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 5.64
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 3.01
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.29
+postergo green tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: EMPUJAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+corrida   9: 3 cubos, ·ltimo a 51.2 s
+estado: ESPERANDO -> IR_APROX | cubo: green
+estado: ESPERANDO -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 3.2
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 3.69
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 2.56
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 2.94
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 2.31
+postergo blue tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+postergo red tras 3 intentos
+estado: EMPUJAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.81
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: EMPUJAR -> IR_APROX | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.18
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 1.38
+postergo green tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 0.11
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 0.52
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+corrida  10: 3 cubos, ·ltimo a 63.6 s
+estado: ESPERANDO -> IR_APROX | cubo: green
+estado: ESPERANDO -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 3.39
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.62
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 6.28
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 3.24
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 2.23
+postergo blue tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+postergo green tras 3 intentos
+estado: EMPUJAR -> IR_APROX | cubo: None
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 1.38
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+postergo blue tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: EMPUJAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> LISTO | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+postergo red tras 3 intentos
+estado: EMPUJAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+postergo red tras 3 intentos
+estado: EMPUJAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+postergo red tras 3 intentos
+estado: EMPUJAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+postergo red tras 3 intentos
+estado: EMPUJAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+corrida  11: 2 cubos, ·ltimo a 54.1 s
+estado: ESPERANDO -> IR_APROX | cubo: green
+estado: ESPERANDO -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.87
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.21
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+postergo green tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+postergo green tras 3 intentos
+estado: EMPUJAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 3.29
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 2.57
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+postergo blue tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 4.72
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 2.24
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: EMPUJAR -> IR_APROX | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 1.57
+postergo red tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+corrida  12: 3 cubos, ·ltimo a 74.2 s
+estado: ESPERANDO -> IR_APROX | cubo: red
+estado: ESPERANDO -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 2.78
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 5.35
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 1.87
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 1.23
+postergo blue tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 2.16
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 1.37
+postergo red tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> IR_APROX | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 4.19
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 2.06
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 1.51
+postergo red tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> LISTO | cubo: None
+estado: LISTO -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 3.74
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.97
+postergo green tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.15
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> IR_APROX | cubo: green
+estado: IR_APROX -> LISTO | cubo: None
+estado: EMPUJAR -> IR_APROX | cubo: green
+corrida  13: 2 cubos, ·ltimo a 81.8 s
+estado: ESPERANDO -> IR_APROX | cubo: red
+estado: ESPERANDO -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 5.87
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 3.24
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 2.48
+postergo red tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 4.26
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 6.68
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 3.48
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.62
+postergo green tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 3.54
+postergo blue tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+estado: EMPUJAR -> IR_APROX | cubo: red
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> LISTO | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 2.91
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+corrida  14: 3 cubos, ·ltimo a 82.0 s
+estado: ESPERANDO -> IR_APROX | cubo: green
+estado: ESPERANDO -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 3.89
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 4.06
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 3.09
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 3.22
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.19
+postergo green tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 2.49
+postergo blue tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 2.84
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 2.11
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 1.23
+postergo red tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> IR_APROX | cubo: red
+estado: IR_APROX -> LISTO | cubo: None
+estado: LISTO -> IR_APROX | cubo: None
+estado: IR_APROX -> LISTO | cubo: None
+estado: LISTO -> IR_APROX | cubo: None
+estado: IR_APROX -> LISTO | cubo: None
+estado: LISTO -> IR_APROX | cubo: None
+estado: IR_APROX -> LISTO | cubo: None
+estado: LISTO -> IR_APROX | cubo: None
+estado: IR_APROX -> LISTO | cubo: None
+estado: LISTO -> IR_APROX | cubo: None
+estado: IR_APROX -> LISTO | cubo: None
+estado: LISTO -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+corrida  15: 3 cubos, ·ltimo a 64.2 s
+estado: ESPERANDO -> IR_APROX | cubo: green
+estado: ESPERANDO -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 3.52
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.06
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: green
+no entr¾: blue falta 2.84
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 1.21
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 2.16
+postergo blue tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 6.48
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 3.37
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 2.62
+postergo red tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+postergo green tras 3 intentos
+estado: EMPUJAR -> IR_APROX | cubo: None
+no entr¾: green falta 4.25
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.95
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.34
+postergo green tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> IR_APROX | cubo: blue
+estado: EMPUJAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+corrida  16: 3 cubos, ·ltimo a 81.8 s
+estado: ESPERANDO -> IR_APROX | cubo: red
+estado: ESPERANDO -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 6.37
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 4.02
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 3.38
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 2.24
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.36
+postergo green tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 1.38
+postergo blue tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 5.29
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 2.6
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 1.77
+postergo red tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 1.01
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+corrida  17: 3 cubos, ·ltimo a 58.7 s
+estado: ESPERANDO -> IR_APROX | cubo: green
+estado: ESPERANDO -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 4.02
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 5.69
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 1.62
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 0.94
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 1.89
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 1.02
+postergo green tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+postergo blue tras 3 intentos
+estado: EMPUJAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> IR_APROX | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 5.57
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 2.14
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 2.14
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+postergo red tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 3.62
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 2.12
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> IR_APROX | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 1.4
+postergo blue tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: IR_APROX -> LISTO | cubo: None
+corrida  18: 3 cubos, ·ltimo a 94.2 s
+estado: ESPERANDO -> IR_APROX | cubo: red
+estado: ESPERANDO -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 4.35
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 3.61
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 5.53
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 2.74
+postergo red tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 3.04
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.82
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 2.36
+postergo blue tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.18
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 1.27
+postergo green tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> IR_APROX | cubo: blue
+estado: EMPUJAR -> IR_APROX | cubo: green
+estado: IR_APROX -> LISTO | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 2.08
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+corrida  19: 3 cubos, ·ltimo a 63.1 s
+estado: ESPERANDO -> IR_APROX | cubo: red
+estado: ESPERANDO -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 5.42
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 2.6
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+postergo blue tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 8.54
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: EMPUJAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 4.8
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 3.44
+postergo green tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 3.8
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 2.88
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 2.29
+postergo red tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+estado: EMPUJAR -> IR_APROX | cubo: red
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> LISTO | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.45
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+corrida  20: 3 cubos, ·ltimo a 99.1 s
+estado: ESPERANDO -> IR_APROX | cubo: red
+estado: ESPERANDO -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.91
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 3.68
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.21
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 2.21
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 1.51
+postergo blue tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 0.69
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+postergo green tras 3 intentos
+estado: EMPUJAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: EMPUJAR -> IR_APROX | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 5.22
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 2.48
+postergo red tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 1.68
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> IR_APROX | cubo: red
+estado: IR_APROX -> LISTO | cubo: None
+corrida  21: 2 cubos, ·ltimo a 78.7 s
+estado: ESPERANDO -> IR_APROX | cubo: blue
+estado: ESPERANDO -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 6.95
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 4.37
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 3.16
+postergo blue tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 7.01
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 8.07
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 5.22
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: green
+no entr¾: red falta 4.3
+postergo red tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 3.22
+postergo green tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 2.46
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 3.44
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 2.74
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: red
+postergo red tras 3 intentos
+estado: EMPUJAR -> IR_APROX | cubo: None
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+estado: IR_APROX -> LISTO | cubo: None
+ENTREGADO red | restan 513 s
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.55
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+corrida  22: 3 cubos, ·ltimo a 97.5 s
+estado: ESPERANDO -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ESPERANDO -> IR_APROX | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 3.72
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 3.05
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.37
+postergo green tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 4.27
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 3.55
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 2.66
+postergo red tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 4.86
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 2.5
+postergo blue tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: EMPUJAR -> IR_APROX | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+ENTREGADO red | restan 545 s
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 1.53
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 1.79
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+corrida  23: 3 cubos, ·ltimo a 67.8 s
+estado: ESPERANDO -> IR_APROX | cubo: blue
+estado: ESPERANDO -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 5.38
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+postergo blue tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: EMPUJAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 6.88
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 3.55
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.58
+postergo green tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 2.91
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 2.1
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 1.19
+postergo red tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+postergo blue tras 3 intentos
+estado: EMPUJAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+corrida  24: 3 cubos, ·ltimo a 87.7 s
+estado: ESPERANDO -> IR_APROX | cubo: green
+estado: ESPERANDO -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 6.32
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 2.79
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 1.84
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 0.9
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 3.58
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.72
+postergo green tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+postergo blue tras 3 intentos
+estado: EMPUJAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 8.17
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: EMPUJAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 4.68
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 3.27
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 3.28
+postergo red tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+postergo red tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+corrida  25: 3 cubos, ·ltimo a 84.1 s
+estado: ESPERANDO -> IR_APROX | cubo: green
+estado: ESPERANDO -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 3.85
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.98
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 4.54
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 2.21
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 1.21
+postergo blue tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+postergo green tras 3 intentos
+estado: EMPUJAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 6.05
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 3.32
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 2.59
+postergo red tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: EMPUJAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 1.87
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+corrida  26: 3 cubos, ·ltimo a 75.0 s
+estado: ESPERANDO -> IR_APROX | cubo: blue
+estado: ESPERANDO -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 6.18
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+estado: EMPUJAR -> IR_APROX | cubo: red
+postergo red tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 2.03
+postergo red tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 4.38
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.64
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 1.84
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: ALINEAR -> IR_APROX | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 1.1
+postergo green tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+postergo green tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+estado: EMPUJAR -> IR_APROX | cubo: green
+ENTREGADO green | restan 501 s
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 1.39
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+postergo red tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: EMPUJAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+ENTREGADO red | restan 464 s
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> LISTO | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 6.12
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 2.28
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 1.52
+postergo blue tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+corrida  27: 3 cubos, ·ltimo a 158.1 s
+estado: ESPERANDO -> IR_APROX | cubo: red
+estado: ESPERANDO -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 8.14
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 4.78
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 3.39
+postergo red tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 4.96
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 4.38
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: green falta 2.32
+postergo green tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+no entr¾: blue falta 2.28
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 1.34
+postergo blue tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 1.54
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> IR_APROX | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 2.53
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: IR_APROX -> LISTO | cubo: None
+estado: ALINEAR -> EMPUJAR | cubo: red
+corrida  28: 3 cubos, ·ltimo a 79.8 s
+estado: ESPERANDO -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: ESPERANDO -> IR_APROX | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 3.21
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.38
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 1.72
+postergo green tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 4.47
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 2.55
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 1.69
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 2.4
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 1.14
+postergo red tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 1.8
+postergo blue tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> IR_APROX | cubo: blue
+estado: EMPUJAR -> IR_APROX | cubo: green
+estado: IR_APROX -> LISTO | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+corrida  29: 3 cubos, ·ltimo a 69.1 s
+estado: ESPERANDO -> IR_APROX | cubo: red
+estado: ESPERANDO -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 2.85
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 2.04
+estado: VERIFICAR -> IR_APROX | cubo: red
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 2.9
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: EMPUJAR -> RETROCEDER | cubo: red
+estado: RETROCEDER -> VERIFICAR | cubo: red
+no entr¾: red falta 1.47
+postergo red tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: EMPUJAR -> RETROCEDER | cubo: blue
+estado: RETROCEDER -> VERIFICAR | cubo: blue
+no entr¾: blue falta 2.11
+estado: VERIFICAR -> IR_APROX | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: blue
+estado: ALINEAR -> EMPUJAR | cubo: blue
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 5.67
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.92
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 2.17
+postergo green tras 3 intentos
+estado: VERIFICAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+estado: EMPUJAR -> RETROCEDER | cubo: green
+estado: RETROCEDER -> VERIFICAR | cubo: green
+no entr¾: green falta 1.35
+estado: VERIFICAR -> IR_APROX | cubo: green
+estado: IR_APROX -> ALINEAR | cubo: green
+estado: ALINEAR -> EMPUJAR | cubo: green
+postergo blue tras 3 intentos
+estado: EMPUJAR -> IR_APROX | cubo: None
+estado: IR_APROX -> ALINEAR | cubo: red
+estado: ALINEAR -> EMPUJAR | cubo: red
+corrida  30: 3 cubos, ·ltimo a 53.0 s
+
+=== 30 corridas, dificultad 0.2 ===
+3 cubos: 27/30  (90%)
+promedio de cubos: 2.90
+tiempo: mejor 51.2s  mediana 77.8s  peor 158.1s
