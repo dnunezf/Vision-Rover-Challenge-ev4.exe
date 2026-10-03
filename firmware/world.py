@@ -8,6 +8,11 @@ ESP32 y en la laptop, y se puede probar con py sin tener el robot enfrente.
 Regla: el resto del código NUNCA toca el diccionario del mensaje. Todo pasa
 por acá. Si mañana el contrato cambia un nombre de campo, se arregla en un
 solo lugar.
+
+CONTRATO v3 (octubre 2026)
+-------------------------
+Cada cubo trae `in_depot`: el veredicto del árbitro. Es lo que cuenta los
+cubos y cierra la ronda, así que manda sobre cualquier cuenta nuestra.
 """
 
 import math
@@ -78,18 +83,20 @@ def lado_mas_cercano(col, row, cols, rows):
 def cubo_en_zona(cubo, depot, depot_size, grid, cube_side):
     """Devuelve (está_adentro, cuánto_falta_en_celdas).
 
-    Es la MISMA cuenta que corre el juez. No inventar otra versión: si
-    difieren, un cubo puede estar adentro para nosotros y afuera para la
-    organización, y eso se descubre el día del torneo.
+    Desde la v3 esta NO es la cuenta oficial: el veredicto viaja en
+    `in_depot`. Queda por dos motivos.
 
-    La sutileza está en el margen. El mensaje dice dónde está el centro del
-    cubo, pero NO cómo está girado: la organización decidió no publicar el
-    ángulo porque para atrapar el cubo da igual, y un marcador encima taparía
-    el color. Para que el veredicto valga en cualquier rotación se usa el peor
-    caso: media diagonal del cubo, que es lado × raíz(2) / 2.
+    Primero, `falta` sigue siendo útil: dice CUÁNTO le faltó al cubo cuando
+    no entró, y eso el contrato no lo publica. Es el número con el que se
+    ajusta TOLERANCIA_ENTREGA.
 
-    Con cubos de 3 celdas eso da 2.12 celdas = 42.4 mm. Por eso el cubo tiene
-    que quedar CENTRADO en la zona y no empujado contra el borde exterior.
+    Segundo, es el respaldo para grabaciones viejas en v2, que no traen
+    `in_depot`.
+
+    Ojo: esta cuenta es MÁS ESTRICTA que la del árbitro. Usa media diagonal
+    del cubo como margen (el peor giro posible), mientras que el árbitro
+    agranda su ventana 2.5 mm por lado. Ventana conservadora: 115.2 × 65.1 mm.
+    Ventana del árbitro: 120.1 × 70.1 mm. Por eso conviene creerle a él.
     """
     lado = lado_mas_cercano(depot["col"], depot["row"], grid["cols"], grid["rows"])
 
@@ -140,7 +147,21 @@ class Mundo:
         return self.msg["phase"] if self.msg else "IDLE"
 
     def corriendo(self):
+        """Solo RUNNING. Para saber si la ronda formal ya empezó."""
         return self.fase() == "RUNNING"
+
+    def activa(self):
+        """READY o RUNNING: cuándo el robot tiene que estar trabajando.
+
+        torneo.md 4.3 y 4.4: la detección de READY debe provocar
+        automáticamente el inicio de la estrategia, y ese cambio marca el
+        inicio oficial del cronometraje.
+
+        READY dura 60 segundos (preparacion_ms). Esperar a RUNNING los regala,
+        y además el reglamento prohíbe arrancar con un botón (4.5 y 4.6): el
+        arranque tiene que ser por telemetría.
+        """
+        return self.fase() in ("READY", "RUNNING")
 
     def restante_ms(self):
         return self.msg["clock"]["remaining_ms"] if self.msg else 0
@@ -187,9 +208,28 @@ class Mundo:
     # --- derivados ---
 
     def entregado(self, color):
+        """El veredicto del ÁRBITRO, no el nuestro.
+
+        Desde la v3 viaja en el mensaje. Es el mismo que cuenta los cubos y
+        cierra la ronda, así que no hay nada que discutirle: si él dice que
+        entró, entró.
+
+        Detalle que importa al verificar: el árbitro exige que el cubo se
+        sostenga 1 segundo adentro antes de darlo por entregado. No esperen
+        que esto cambie al instante. El tiempo oficial, en cambio, se toma del
+        instante de ENTRADA, así que ese segundo no se paga.
+
+        El cálculo local queda de respaldo para grabaciones viejas en v2.
+        """
         cubo = self.cubo(color)
+        if cubo is None:
+            return False
+
+        if "in_depot" in cubo:
+            return bool(cubo["in_depot"])
+
         depot = self.depot(color)
-        if cubo is None or depot is None:
+        if depot is None:
             return False
         adentro, _ = cubo_en_zona(
             cubo, depot, self.msg["depot_size"], self.msg["grid"],
@@ -197,7 +237,11 @@ class Mundo:
         return adentro
 
     def falta_para_entregar(self, color):
-        """Cuántas celdas le faltan al cubo. 0 = ya está adentro."""
+        """Cuántas celdas le faltan al cubo. 0 = ya está adentro.
+
+        Esto el contrato no lo publica, así que se calcula. Es el dato con el
+        que se ajusta TOLERANCIA_ENTREGA cuando un cubo queda corto.
+        """
         cubo = self.cubo(color)
         depot = self.depot(color)
         if cubo is None or depot is None:
@@ -208,5 +252,5 @@ class Mundo:
         return falta
 
     def pendientes(self):
-        """Cubos que todavía no están en su zona."""
+        """Cubos que todavía no están en su zona, según el árbitro."""
         return [c for c in self.colores() if not self.entregado(c)]
