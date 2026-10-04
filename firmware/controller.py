@@ -7,9 +7,19 @@ este módulo se prueba entero en la laptop.
 
 CUÁNDO ARRANCA
 --------------
-En READY, no en RUNNING. El reglamento del torneo (4.3) obliga a que la
-detección de READY dispare la estrategia, y el cronometraje arranca ahí
-(4.4). READY dura 60 segundos: esperar a RUNNING los regala.
+En RUNNING. El reglamento del 4-oct-2026 cambió esto respecto de la versión
+anterior, y es un cambio de fondo:
+
+    READY    1 minuto para PENSAR. Se recibe telemetría, se identifican los
+             cubos y se reparten las tareas, pero los rovers "deberán
+             permanecer INMÓVILES" (9.3). Ese minuto no cuenta para el
+             cronómetro (9.4), así que esperar no cuesta nada.
+    RUNNING  acá arranca el movimiento y el cronómetro oficial (9.6, 10.2).
+    FINISHED los rovers deben detenerse (10.6).
+
+La versión vieja decía lo contrario —que READY disparaba la estrategia y el
+reloj— y este archivo estaba escrito para eso. Moverse en READY pasó de ser
+un minuto gratis a ser un incumplimiento.
 
 LOS ESTADOS DE UNA ENTREGA
     ESPERANDO   → fase IDLE o FINISHED, o el retardo de salida
@@ -56,9 +66,30 @@ RETROCESO_CELDAS = 5.0        # cuánto retroceder para despejar
 EDAD_FRESCA_MS = 250
 EDAD_DUDOSA_MS = 1500
 
-# Deconflicción
-RADIO_CEDER_PASO = 5.0        # celdas = 100 mm
-ANGULO_CEDER_PASO = 60.0      # solo cedo si lo tengo por delante
+# Deconflicción  [MEDIDO 4-oct-2026, sesion_20261004_115530.ndjson]
+#
+# Los dos rovers se trabaron y la distancia entre sus centros se quedó clavada
+# en 5.70-5.75 celdas (114-115 mm) durante 44 segundos. O sea: SE TOCAN A 5.7.
+#
+# El radio de ceder el paso valía 5.0. Era más chico que el propio robot, así
+# que la evasión no podía dispararse NUNCA antes del golpe: para cuando la
+# distancia hubiera bajado de 5.0 ya estaban trabados hace rato. Toda la
+# deconflicción era decorativa.
+#
+# 9.0 celdas = 180 mm deja 66 mm de margen sobre el contacto. A 2.7 celdas/s
+# eso es un segundo de reacción, veinte mensajes de telemetría.
+RADIO_CEDER_PASO = 9.0        # celdas = 180 mm
+RADIO_CONTACTO = 6.5          # celdas = 130 mm: tan cerca que estorba de donde venga
+ANGULO_CEDER_PASO = 60.0      # más lejos que RADIO_CONTACTO, solo si lo tengo delante
+
+# Apartarse es una MANIOBRA, no un freno.
+#
+# Antes, ceder el paso era devolver (0, 0): el rover se quedaba quieto. Si el
+# otro le quedaba enfrente, se quedaba quieto para siempre, hasta que vencía
+# el timeout de 55 segundos. Dos robots trabados y uno de ellos esperando
+# cortésmente es exactamente lo que se ve en la grabación del domingo.
+THROTTLE_APARTARSE = 0.40
+MS_APARTARSE = 1200
 
 # Timeouts
 TIMEOUT_IR_APROX_MS = 55000
@@ -76,6 +107,7 @@ MAX_REINTENTOS = 3
 FALTA_CASI_DENTRO = 1.0       # celdas = 20 mm
 
 ESPERANDO = "ESPERANDO"
+APARTARSE = "APARTARSE"
 IR_APROX = "IR_APROX"
 ALINEAR = "ALINEAR"
 EMPUJAR = "EMPUJAR"
@@ -207,18 +239,17 @@ class Controlador:
     # Deconflicción
     # ----------------------------------------------------------------------
 
-    def _debo_ceder(self):
-        """Prioridad FIJA: el rover con prioridad nunca cede.
+    def _estorba_el_otro(self):
+        """¿El compañero me está bloqueando ahora mismo?
 
-        Si los dos cedieran, se quedarían trabados mirándose para siempre,
-        como dos personas en un pasillo. Con prioridad fija eso no puede
-        pasar: uno siempre avanza.
+        Dos umbrales, no uno:
 
-        Se resuelve con la pura telemetría, sin comunicación entre rovers.
+          - A menos de RADIO_CONTACTO estamos prácticamente tocándonos, y
+            entonces estorba venga del ángulo que venga. Un rover pegado por
+            el costado también traba.
+          - Entre RADIO_CONTACTO y RADIO_CEDER_PASO solo estorba si lo tengo
+            POR DELANTE. Si está atrás y lejos, no es mi problema.
         """
-        if TIENE_PRIORIDAD:
-            return False
-
         yo = self.mundo.yo()
         otro = self.mundo.companero()
         if yo is None or otro is None:
@@ -230,12 +261,54 @@ class Controlador:
             return False
 
         d = world.distancia(yo["col"], yo["row"], otro["col"], otro["row"])
+        if d <= RADIO_CONTACTO:
+            return True
         if d > RADIO_CEDER_PASO:
             return False
 
-        # Solo cedo si lo tengo por DELANTE. Si está atrás, no me estorba.
         rumbo = world.rumbo_hacia(yo["col"], yo["row"], otro["col"], otro["row"])
         return abs(world.normalizar(rumbo - yo["theta"])) < ANGULO_CEDER_PASO
+
+    def _debo_ceder(self):
+        """Prioridad FIJA: el rover con prioridad nunca cede.
+
+        Si los dos cedieran, se quedarían trabados mirándose para siempre,
+        como dos personas en un pasillo. Con prioridad fija eso no puede
+        pasar: uno siempre avanza.
+
+        Se resuelve con la pura telemetría, sin comunicación entre rovers.
+        """
+        # PROBADO Y DESCARTADO (4-oct): dejar que el de prioridad TAMBIÉN se
+        # despegara al tocarse bajó de 90% a 87% en las mismas 100 corridas.
+        # Suena razonable y mide peor: con los dos maniobrando, el que tenía
+        # prioridad cede terreno que ya había ganado y los dos terminan
+        # bailando alrededor del mismo cubo. La prioridad fija funciona
+        # justamente porque es ciega.
+        if TIENE_PRIORIDAD:
+            return False
+        return self._estorba_el_otro()
+
+    def _maniobra_apartarse(self):
+        """Salir de encima del compañero. Devuelve (avance, giro).
+
+        Retrocede si lo tengo delante y avanza si lo tengo detrás —
+        retroceder con el otro atrás sería metérsele encima— y al mismo
+        tiempo gira hacia el lado CONTRARIO al que está él, para no volver a
+        cruzármelo en cuanto termine la maniobra.
+        """
+        yo = self.mundo.yo()
+        otro = self.mundo.companero()
+        if yo is None or otro is None:
+            return 0.0, 0.0
+
+        rumbo = world.rumbo_hacia(yo["col"], yo["row"], otro["col"], otro["row"])
+        error = world.normalizar(rumbo - yo["theta"])
+
+        # Girar alejando la trompa de él: si lo tengo a la izquierda (error
+        # positivo), giro a la derecha.
+        w = -THROTTLE_GIRO if error >= 0.0 else THROTTLE_GIRO
+        v = -THROTTLE_APARTARSE if abs(error) < 90.0 else THROTTLE_APARTARSE
+        return v, w
 
     # ----------------------------------------------------------------------
     # Un ciclo
@@ -245,13 +318,29 @@ class Controlador:
         """Se llama una vez por mensaje. Devuelve (avance, giro)."""
         m = self.mundo
 
-        # READY cuenta como activa: el cronómetro oficial ya corre y el
-        # reglamento obliga a arrancar ahí (torneo.md 4.3 y 4.4).
-        if not m.activa():
+        # IDLE o FINISHED: ni pensar ni moverse.
+        if not m.puede_planificar():
             self.estado = ESPERANDO
             self.arranque_ronda = None
             return 0.0, 0.0
 
+        # READY: pensar SIN moverse (reglamento 9.3, versión del 4-oct-2026).
+        #
+        # Ese minuto no cuenta para el cronómetro (9.4), así que no se pierde
+        # nada; y moverse ahí sería incumplir. Lo que sí se hace es dejar el
+        # reparto resuelto, para que al cambiar a RUNNING el robot arranque
+        # con el objetivo ya elegido en vez de gastar el primer ciclo
+        # decidiendo.
+        if not m.puede_moverse():
+            self.estado = ESPERANDO
+            self.arranque_ronda = None
+            if m.yo() is not None:
+                self.objetivo = planner.mi_objetivo(
+                    m, self.objetivo, self.postergados)
+            return 0.0, 0.0
+
+        # El cronómetro de la salida escalonada cuenta desde RUNNING, que es
+        # donde arranca el intento de verdad (9.6).
         if self.arranque_ronda is None:
             self.arranque_ronda = ahora_ms
 
@@ -263,8 +352,20 @@ class Controlador:
         if m.yo() is None:
             return 0.0, 0.0        # este cuadro no me vio
 
+        # --- apartarse del compañero ---------------------------------------
+        # Va ANTES de elegir objetivo: si estamos trabados, ningún plan sirve
+        # hasta despegarnos. El objetivo se conserva, así que al salir se
+        # retoma lo que se estaba haciendo.
+        if self.estado == APARTARSE:
+            if (self._en_estado_ms(ahora_ms) > MS_APARTARSE
+                    or not self._estorba_el_otro()):
+                self._ir_a(IR_APROX, ahora_ms)
+                return 0.0, 0.0
+            return self._maniobra_apartarse()
+
         if self._debo_ceder():
-            return 0.0, 0.0
+            self._ir_a(APARTARSE, ahora_ms)
+            return self._maniobra_apartarse()
 
         # --- elegir objetivo ---
         if self.estado in (ESPERANDO, IR_APROX):

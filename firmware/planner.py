@@ -218,6 +218,22 @@ def repartir(mundo):
         id_a, pos_a = mundo.id_companero, otro
         id_b, pos_b = mundo.mi_id, yo
 
+    # ------------------------------------------------------------------
+    # LOS DOS ROVERS TIENEN QUE TRABAJAR  (reglamento 12.2.13, 4-oct-2026)
+    # ------------------------------------------------------------------
+    # "Para completar válidamente los tres cubos, CADA rover deberá haber
+    # transportado o empujado al menos un cubo hacia su zona de acopio."
+    #
+    # O sea que un reparto 3-0 no es una optimización agresiva: es un intento
+    # INVÁLIDO. Aunque entren los tres cubos, no cuenta.
+    #
+    # Por eso, mientras queden dos o más cubos y el compañero esté a la vista,
+    # se descartan los repartos que dejen a alguien sin nada. Si el compañero
+    # NO está a la vista —se quedó sin batería, se desconectó— la restricción
+    # se levanta: tres cubos entregados por uno solo valen más que cero, y a
+    # esa altura el intento ya estaba perdido de todas formas.
+    exigir_ambos = len(pendientes) >= 2 and mundo.companero() is not None
+
     mejor = None
 
     # Cada bit de la máscara dice a qué rover va ese cubo.
@@ -230,6 +246,9 @@ def repartir(mundo):
                 lista_b.append(color)
             else:
                 lista_a.append(color)
+
+        if exigir_ambos and (not lista_a or not lista_b):
+            continue
 
         # Y para cada reparto, en qué orden los hace cada uno.
         for orden_a in _permutaciones(lista_a):

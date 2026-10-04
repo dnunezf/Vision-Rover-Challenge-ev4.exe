@@ -17,6 +17,27 @@ cubos y cierra la ronda, así que manda sobre cualquier cuenta nuestra.
 
 import math
 
+# Cuánto puede tener un dato antes de que deje de servir para navegar.
+#
+# [MEDIDO 4-oct-2026, captura de la cancha] El panel del sistema de visión
+# marcaba "Edad máxima 44548 ms": la cámara llevaba 44 SEGUNDOS sin ver los
+# cubos, y 10 sin ver al rover 10. Lo que publica el contrato en ese caso es
+# la última posición conocida, con su age_ms al lado.
+#
+# Hasta hoy yo(), cubo() y depot() no miraban age_ms. O sea que el robot
+# navegaba hacia donde estaba un cubo hace casi un minuto, con la misma
+# confianza que si lo estuviera viendo. Eso es exactamente "iban sin rumbo".
+#
+# A 20 Hz, mi propia pose nunca debería tener más de 50 ms. Un segundo son
+# veinte mensajes perdidos: a esa altura ya no sé dónde estoy, y un robot que
+# no sabe dónde está no tiene por qué moverse.
+EDAD_MAXIMA_POSE_MS = 1000
+
+# Un cubo quieto envejece sin volverse falso, así que el límite es más
+# generoso. Pero pasados cinco segundos deja de ser una base confiable para
+# ELEGIR a cuál ir; planner lo manda al final de la fila en vez de descartarlo.
+EDAD_MAXIMA_CUBO_MS = 5000
+
 
 def _hipotenusa(dx, dy):
     """sqrt(dx² + dy²), escrito a mano.
@@ -162,18 +183,36 @@ class Mundo:
         """Solo RUNNING. Para saber si la ronda formal ya empezó."""
         return self.fase() == "RUNNING"
 
-    def activa(self):
-        """READY o RUNNING: cuándo el robot tiene que estar trabajando.
+    def puede_planificar(self):
+        """READY o RUNNING: cuándo el robot tiene que estar PENSANDO.
 
-        torneo.md 4.3 y 4.4: la detección de READY debe provocar
-        automáticamente el inicio de la estrategia, y ese cambio marca el
-        inicio oficial del cronometraje.
-
-        READY dura 60 segundos (preparacion_ms). Esperar a RUNNING los regala,
-        y además el reglamento prohíbe arrancar con un botón (4.5 y 4.6): el
-        arranque tiene que ser por telemetría.
+        reglamento 9.3 y 11.2.1 (versión del 4-oct-2026): durante READY los
+        rovers pueden recibir telemetría, analizar el escenario, identificar
+        los cubos, repartirse las tareas y planificar. Ese minuto es para eso.
         """
         return self.fase() in ("READY", "RUNNING")
+
+    def puede_moverse(self):
+        """SOLO RUNNING: cuándo el robot tiene permiso de moverse.
+
+        OJO, ESTO CAMBIÓ. La versión vieja del reglamento decía que READY
+        marcaba el inicio del intento y del cronómetro, y por eso este código
+        arrancaba el movimiento ahí. La versión del 4-oct lo da vuelta:
+
+            9.3  "Durante READY ... deberán permanecer INMÓVILES."
+            9.4  "El minuto en READY no forma parte del tiempo oficial."
+            9.6  "El cambio a RUNNING marca el inicio oficial del intento y
+                  del cronometraje."
+            10.2 "Los 10 minutos se medirán a partir de ... RUNNING."
+
+        O sea que moverse en READY ya no es ganar un minuto gratis: es
+        incumplir. Y no se pierde nada esperando, porque el reloj tampoco
+        corre en READY.
+
+        FINISHED también queda afuera, por 10.6: al terminar, los rovers
+        deben detenerse.
+        """
+        return self.fase() == "RUNNING"
 
     def restante_ms(self):
         return self.msg["clock"]["remaining_ms"] if self.msg else 0
@@ -194,10 +233,28 @@ class Mundo:
         return None
 
     def yo(self):
-        return self.rover(self.mi_id)
+        """Mi pose, SOLO si es fresca.
+
+        Devolver None cuando el dato está viejo es lo que hace que el
+        controlador frene: `paso()` ya tiene `if m.yo() is None: return 0, 0`.
+        Moverse con una pose vieja es peor que no moverse — el lazo corrige
+        hacia un error que ya no existe y se va de la cancha.
+        """
+        r = self.rover(self.mi_id)
+        if r is not None and r.get("age_ms", 0) > EDAD_MAXIMA_POSE_MS:
+            return None
+        return r
 
     def companero(self):
-        return self.rover(self.id_companero)
+        r = self.rover(self.id_companero)
+        if r is not None and r.get("age_ms", 0) > EDAD_MAXIMA_POSE_MS:
+            return None
+        return r
+
+    def edad_cubo(self, color):
+        """Cuántos ms hace que no se ve ese cubo. None si no viene en el mensaje."""
+        c = self.cubo(color)
+        return None if c is None else c.get("age_ms", 0)
 
     def cubo(self, color):
         """El color ES la identidad: no hay dos cubos del mismo color."""

@@ -17,8 +17,13 @@ del equipo.
 
 Así que este archivo arranca al encender la placa, se conecta, y queda
 girando. Quien decide cuándo moverse es el controlador, mirando la fase de la
-telemetría. Durante IDLE el robot está encendido y conectado, quieto; en
-cuanto ve READY, sale solo.
+telemetría:
+
+    IDLE      encendido y conectado, quieto. Acá se colocan los robots.
+    READY     1 minuto pensando, QUIETO (reglamento 9.3). Se reparte el
+              trabajo pero no se mueve nada.
+    RUNNING   sale solo. Acá arranca el cronómetro oficial (9.6).
+    FINISHED  se detiene (10.6).
 
 EL LED: UN COLOR POR ESTADO
 ---------------------------
@@ -26,7 +31,9 @@ En la cancha el robot va SIN CABLE, así que no hay consola. El LED es toda la
 información disponible, y por eso lleva un color por estado y no solo tres:
 
     ROJO       sin telemetría fresca (watchdog) — está ciego y frenado
-    AMARILLO   conectado, esperando READY
+    AMARILLO   conectado, en IDLE o FINISHED
+    NARANJA    en READY: recibiendo y planificando, quieto a propósito
+    ROJO fijo  en APARTARSE: despegándose del compañero
     VERDE      yendo al punto de aproximación
     AZUL       alineándose
     CELESTE    empujando el cubo
@@ -68,6 +75,7 @@ WATCHDOG_MS = 500
 PERIODO_LOG_MS = 1000
 
 ROJO = (64, 0, 0)
+NARANJA = (64, 20, 0)
 AMARILLO = (64, 64, 0)
 VERDE = (0, 64, 0)
 AZUL = (0, 0, 64)
@@ -81,6 +89,7 @@ BLANCO = (48, 48, 48)
 # deja de compilar en vez de quedarse mostrando el color de otro.
 COLOR_DE_ESTADO = {
     controller.ESPERANDO:  AMARILLO,
+    controller.APARTARSE:  ROJO,      # despegándose del compañero
     controller.IR_APROX:   VERDE,
     controller.ALINEAR:    AZUL,
     controller.EMPUJAR:    CELESTE,
@@ -126,7 +135,7 @@ ctrl = controller.Controlador(mundo, ahora_ms())
 ib.pixel = AMARILLO
 
 print()
-print("CONECTADO. Esperando READY por telemetría. No hay que apretar nada.")
+print("CONECTADO. En READY planifica quieto; arranca solo en RUNNING.")
 
 
 # --------------------------------------------------------------------------
@@ -174,8 +183,15 @@ while True:
 
     # 4b. EL LED. Solo se escribe cuando CAMBIA: escribirlo en cada vuelta
     #     cuesta tiempo del lazo para mostrar lo mismo.
-    color = AMARILLO if not mundo.activa() else COLOR_DE_ESTADO.get(
-        ctrl.estado, VERDE)
+    # NARANJA = en READY, planificando quieto. Sirve para ver de un vistazo
+    # que el robot SÍ está recibiendo telemetría durante ese minuto, aunque
+    # no se mueva: amarillo e inmóvil no distingue "esperando" de "colgado".
+    if mundo.puede_moverse():
+        color = COLOR_DE_ESTADO.get(ctrl.estado, VERDE)
+    elif mundo.puede_planificar():
+        color = NARANJA
+    else:
+        color = AMARILLO
     if color != color_actual:
         ib.pixel = color
         color_actual = color
