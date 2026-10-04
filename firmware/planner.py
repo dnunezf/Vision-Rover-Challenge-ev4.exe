@@ -142,18 +142,38 @@ def costo_lista(col, row, colores, mundo):
 # Reparto por fuerza bruta
 # --------------------------------------------------------------------------
 
+_CACHE_PERM = {}
+
+
 def _permutaciones(lista):
     """Todas las ordenaciones posibles de una lista.
 
     Se escribe a mano porque CircuitPython no trae itertools completo.
+
+    MEMORIZADA a propósito. repartir() la llama 24 veces por ciclo y el lazo
+    corre a decenas de hertz, así que la versión recursiva estaba creando y
+    tirando miles de listas por segundo en un ESP32 con muy poca RAM. Los
+    colores son tres y fijos: hay a lo sumo 8 listas distintas que pedir, así
+    que se calculan una vez y se devuelven siempre las mismas.
+
+    El que llama NO debe modificar lo que recibe. Hoy nadie lo hace: repartir()
+    solo las recorre y copia con list() lo que se guarda como mejor.
     """
+    clave = tuple(lista)
+    guardado = _CACHE_PERM.get(clave)
+    if guardado is not None:
+        return guardado
+
     if len(lista) <= 1:
-        return [list(lista)]
-    salida = []
-    for i in range(len(lista)):
-        resto = list(lista[:i]) + list(lista[i + 1:])
-        for p in _permutaciones(resto):
-            salida.append([lista[i]] + p)
+        salida = [list(lista)]
+    else:
+        salida = []
+        for i in range(len(lista)):
+            resto = list(lista[:i]) + list(lista[i + 1:])
+            for p in _permutaciones(resto):
+                salida.append([lista[i]] + p)
+
+    _CACHE_PERM[clave] = salida
     return salida
 
 
@@ -274,6 +294,16 @@ def mi_objetivo(mundo, objetivo_actual=None, postergados=None):
     if postergados:
         preferidos = [c for c in mia if c not in postergados]
         mia = preferidos + [c for c in mia if c in postergados]
+
+    # Un cubo que la cámara no ve hace rato va al final de la fila. No se
+    # descarta —sigue pendiente y puede ser lo único que quede— pero no se
+    # elige mientras haya otro que SÍ se esté viendo: su posición publicada
+    # es la de hace cinco segundos o más, y el punto de aproximación que sale
+    # de ahí apunta a donde el cubo ya no está.
+    viejos = [c for c in mia
+              if (mundo.edad_cubo(c) or 0) > world.EDAD_MAXIMA_CUBO_MS]
+    if viejos and len(viejos) < len(mia):
+        mia = [c for c in mia if c not in viejos] + viejos
 
     nuevo = mia[0]
 

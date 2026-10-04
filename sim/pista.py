@@ -48,9 +48,30 @@ GRADOS_POR_S_A_FONDO = 375.0
 
 RADIO_EMPUJE = 1.8        # celdas: a menos de esto, el rover arrastra el cubo
 RADIO_OCLUSION = 2.0      # celdas: a menos de esto, la cámara no ve el cubo
+
+# Distancia entre CENTROS a la que los dos rovers se tocan.  [MEDIDO 4-oct-2026]
+# Sale de sesion_20261004_115530.ndjson: los dos rovers se trabaron y la
+# distancia entre ellos se quedó clavada en 5.70-5.75 celdas (114-115 mm)
+# durante 44 segundos. Esa es la distancia de contacto real, no una estimación.
+#
+# Hasta hoy el simulador no tenía esto y los dos rovers se ATRAVESABAN. Por eso
+# daba 98% mientras la cancha daba 0 de 3: el modo de falla número uno del
+# torneo era físicamente imposible adentro del simulador.
+DIAMETRO_ROVER = 5.7      # celdas = 114 mm
 RUIDO_POS = 0.06          # celdas, parecido al del simulador oficial
 RUIDO_THETA = 1.5         # grados
 PROB_PERDIDA_ROVER = 0.02 # 2% de los cuadros no se ve un rover
+
+# --- cámara en mal estado -------------------------------------------------
+# El simulador siempre modeló una cámara BUENA: pierde un cuadro suelto y lo
+# recupera al siguiente. La cancha del 4-oct no era así. El panel marcaba
+# "Edad máxima 44548 ms": apagones de decenas de segundos en los que no se ve
+# NADA y el contrato sigue publicando la última posición conocida.
+#
+# Con esto se puede medir qué pasa cuando la cámara falla de verdad, que es lo
+# que no se podía antes. Se activa con --camara mala.
+PROB_APAGON = 0.0          # probabilidad por cuadro de que empiece un apagón
+APAGON_MS = (2000, 20000)  # cuánto dura cada uno
 
 # --- CAMBIO 1: el veredicto del árbitro ----------------------------------
 # El árbitro NO usa nuestra cuenta conservadora: agranda la ventana 2.5 mm
@@ -128,9 +149,35 @@ class Pista:
         drow = -math.sin(rad) * v * DT      # el mismo menos de siempre
 
         ncol, nrow = rover.col + dcol, rover.row + drow
-        if 0 <= ncol <= self.grid["cols"] and 0 <= nrow <= self.grid["rows"]:
-            rover.col, rover.row = ncol, nrow
-            self._empujar(rover, dcol, drow)
+        if not (0 <= ncol <= self.grid["cols"] and 0 <= nrow <= self.grid["rows"]):
+            return
+        if self._choca_con_el_otro(rover, ncol, nrow):
+            return          # trabado: el giro sí ocurrió, el avance no
+        rover.col, rover.row = ncol, nrow
+        self._empujar(rover, dcol, drow)
+
+    def _choca_con_el_otro(self, rover, ncol, nrow):
+        """¿Ese paso lo metería encima del compañero?
+
+        Solo bloquea si el paso ACERCA. Si no, un rover que ya quedó trabado
+        no podría nunca separarse, y en la cancha sí puede: retrocediendo.
+
+        Un rover trabado conserva el giro. Es lo que se ve en la grabación:
+        los motores siguen recibiendo orden y el robot no se traslada, pero la
+        orientación cambia un poco. Bloquear también el giro dejaría al rover
+        en un estado del que ninguna lógica puede salir, y eso sería mentir al
+        revés que antes.
+        """
+        for otro in self.rovers:
+            if otro is rover:
+                continue
+            d_nueva = math.hypot(otro.col - ncol, otro.row - nrow)
+            if d_nueva >= DIAMETRO_ROVER:
+                continue
+            d_vieja = math.hypot(otro.col - rover.col, otro.row - rover.row)
+            if d_nueva < d_vieja:
+                return True
+        return False
 
     def _empujar(self, rover, dcol, drow):
         """El rover arrastra el cubo SOLO si avanza hacia él.
@@ -194,9 +241,18 @@ class Pista:
         """
         self.seq += 1
 
+        # ¿Estamos en un apagón de cámara? Durante uno no se ve nada y todas
+        # las edades crecen solas, igual que en la cancha.
+        if getattr(self, "_apagon_hasta", 0) > self.t_ms:
+            apagon = True
+        else:
+            apagon = PROB_APAGON > 0 and self.rng.random() < PROB_APAGON
+            if apagon:
+                self._apagon_hasta = self.t_ms + self.rng.randint(*APAGON_MS)
+
         rovers = []
         for r in self.rovers:
-            if self.rng.random() >= PROB_PERDIDA_ROVER:
+            if not apagon and self.rng.random() >= PROB_PERDIDA_ROVER:
                 # Se ve: actualizo lo reportado, con ruido.
                 r.rep = (r.col + self.rng.gauss(0, RUIDO_POS),
                          r.row + self.rng.gauss(0, RUIDO_POS),
@@ -211,8 +267,9 @@ class Pista:
         # --- CAMBIO 4: cada cubo viaja con el veredicto ---
         cubes = []
         for c in self.cubos:
-            tapado = any(math.hypot(r.col - c.col, r.row - c.row) < RADIO_OCLUSION
-                         for r in self.rovers)
+            tapado = apagon or any(
+                math.hypot(r.col - c.col, r.row - c.row) < RADIO_OCLUSION
+                for r in self.rovers)
             if not tapado:
                 c.rep = (c.col + self.rng.gauss(0, RUIDO_POS),
                          c.row + self.rng.gauss(0, RUIDO_POS))
@@ -354,7 +411,14 @@ def main():
     ap.add_argument("--n", type=int, default=1)
     ap.add_argument("--dificultad", type=float, default=0.2)
     ap.add_argument("--semilla", type=int, default=2026)
+    ap.add_argument("--camara", choices=("buena", "mala"), default="buena",
+                    help="mala = apagones de camara como los del 4-oct")
     args = ap.parse_args()
+
+    if args.camara == "mala":
+        global PROB_APAGON
+        PROB_APAGON = 0.004      # ~1 apagon cada 12 s de ronda
+
 
     rng = random.Random(args.semilla)
     resultados = []
