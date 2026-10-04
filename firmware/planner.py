@@ -37,8 +37,8 @@ COLORES = ("blue", "green", "red")
 DISTANCIA_APROXIMACION = 6.5    # celdas = 130 mm
 
 # Velocidad estimada, solo para COMPARAR repartos. No se usa para navegar.
-VELOCIDAD_CELDAS_S = 6.0        # [MEDIR con el robot]
-SEGUNDOS_POR_GIRO_90 = 1.2      # [MEDIR con el robot]
+VELOCIDAD_CELDAS_S = 2.7        # medido: 27 cm en 5 s a throttle 0.45
+SEGUNDOS_POR_GIRO_90 = 0.8      # medido a throttle 0.30
 
 
 # --------------------------------------------------------------------------
@@ -184,10 +184,24 @@ def repartir(mundo):
         otro = {"col": mundo.msg["start"]["col"],
                 "row": mundo.msg["start"]["row"]}
 
+    # ------------------------------------------------------------------
+    # ORDEN CANÓNICO POR ID
+    # ------------------------------------------------------------------
+    # El cálculo no menciona "yo" en ningún lado: el de id menor es SIEMPRE A.
+    # Así los dos robots recorren el mismo espacio en el mismo orden y llegan
+    # al mismo resultado incluso ante un empate exacto de punto flotante, que
+    # es el único caso que el orden anterior no cubría.
+    if mundo.mi_id < mundo.id_companero:
+        id_a, pos_a = mundo.mi_id, yo
+        id_b, pos_b = mundo.id_companero, otro
+    else:
+        id_a, pos_a = mundo.id_companero, otro
+        id_b, pos_b = mundo.mi_id, yo
+
     mejor = None
 
     # Cada bit de la máscara dice a qué rover va ese cubo.
-    #   mascara = 0b000 -> los tres al rover A
+    #   mascara = 0b000 -> los tres al rover A (el de id menor)
     #   mascara = 0b101 -> el primero y el tercero al B, el segundo al A
     for mascara in range(1 << len(pendientes)):
         lista_a, lista_b = [], []
@@ -200,8 +214,8 @@ def repartir(mundo):
         # Y para cada reparto, en qué orden los hace cada uno.
         for orden_a in _permutaciones(lista_a):
             for orden_b in _permutaciones(lista_b):
-                t_a = costo_lista(yo["col"], yo["row"], orden_a, mundo)
-                t_b = costo_lista(otro["col"], otro["row"], orden_b, mundo)
+                t_a = costo_lista(pos_a["col"], pos_a["row"], orden_a, mundo)
+                t_b = costo_lista(pos_b["col"], pos_b["row"], orden_b, mundo)
 
                 makespan = max(t_a, t_b)   # el que termina último manda
 
@@ -215,21 +229,41 @@ def repartir(mundo):
     if mejor is None:
         return {mundo.mi_id: [], mundo.id_companero: []}
 
-    return {mundo.mi_id: mejor[1], mundo.id_companero: mejor[2]}
+    return {id_a: mejor[1], id_b: mejor[2]}
 
 
 def mi_objetivo(mundo, objetivo_actual=None, postergados=None):
-    """Qué cubo me toca ahora, con histéresis.
+    """Qué cubo me toca ahora.
 
-    Una vez comprometido con un cubo no se cambia, salvo que la alternativa
-    sea claramente mejor. Sin esto el rover oscila entre dos objetivos casi
-    empatados y no llega a ninguno: arranca hacia el verde, en el mensaje
-    siguiente el rojo parece mejor por un pelo, gira, y así para siempre. En
-    control eso se llama thrashing.
+    Combina dos cosas que se pelean entre sí: el reparto global (que cambia a
+    medida que los rovers se mueven) y el compromiso local (no cambiar de
+    objetivo a mitad de camino).
+
+    HISTÉRESIS: una vez comprometido con un cubo no se cambia, salvo que la
+    alternativa sea claramente mejor. Sin esto el rover oscila entre dos
+    objetivos casi empatados y no llega a ninguno: arranca hacia el verde, en
+    el mensaje siguiente el rojo parece mejor por un pelo, gira, y así para
+    siempre. En control eso se llama thrashing.
+
+    PERO la histéresis NO puede aplicarse a un cubo que el reparto ya le dio al
+    compañero. Medido en el simulador:
+
+        t =    0 ms   reparto:  r10 → green        r11 → red, blue
+        t = 1500 ms   reparto:  r10 → red, blue    r11 → green   ← se dio vuelta
+
+    El rover 10 se acercó a green, y como el makespan es max(t_10, t_11) lo que
+    manda es el más lento: de pronto conviene que el 10 haga los dos lejanos. El
+    11 obedece el reparto nuevo y toma green. Y el 10, pegado a green, veía la
+    alternativa más cara y NO lo soltaba. Los dos sobre el mismo cubo y nadie
+    sobre los otros dos.
+
+    De ahí la regla de abajo: si el reparto ya no me da este cubo, lo suelto sin
+    discutir. La histéresis queda solo para lo que de verdad es mío.
 
     `postergados` son cubos que ya fallaron varias veces: se dejan para el
     final, pero no se descartan, porque si al final es lo único que queda hay
-    que volver a intentarlo.
+    que volver a intentarlo. Solo reordenan MI mitad, nunca cambian el reparto,
+    así que no hace falta que el compañero los conozca.
     """
     reparto = repartir(mundo)
     mia = reparto.get(mundo.mi_id, [])
@@ -249,7 +283,14 @@ def mi_objetivo(mundo, objetivo_actual=None, postergados=None):
     if nuevo == objetivo_actual:
         return objetivo_actual
 
-    # Cambiar solo si la alternativa es 15% mejor. Ese margen es la histéresis.
+    # El reparto ya no me da este cubo: lo suelto, sin histéresis. Es el
+    # compañero el que lo tiene asignado, y si los dos insistimos en el mismo
+    # queda otro sin atender.
+    if objetivo_actual not in mia:
+        return nuevo
+
+    # Sigue siendo mío, solo cambió el orden: cambiar únicamente si la
+    # alternativa es 15% mejor. Ese margen es la histéresis.
     yo = mundo.yo()
     costo_actual = costo_lista(yo["col"], yo["row"], [objetivo_actual], mundo)
     costo_nuevo = costo_lista(yo["col"], yo["row"], [nuevo], mundo)

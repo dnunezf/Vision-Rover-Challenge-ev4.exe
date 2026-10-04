@@ -28,6 +28,37 @@ import time
 import socketpool
 import wifi
 
+# Cada cuánto se reintenta la reconexión. No más seguido: cada intento
+# fallido cuesta tiempo del lazo de control.
+REINTENTO_MS = 1000
+
+# Timeout para el HANDSHAKE TCP. Tiene que ser generoso: abrir una conexión
+# por wifi lleva entre 5 y 50 ms de rutina, y con la red cargada más.
+TIMEOUT_CONECTAR_S = 5.0
+
+# Timeout para RECIBIR, una vez conectado. Acá sí tiene que ser casi cero: el
+# lazo de control no puede quedarse esperando datos que todavía no llegaron.
+TIMEOUT_RECIBIR_S = 0.01
+
+# Tras este silencio se da la conexión por muerta y se reconecta, aunque el
+# socket parezca sano. Es el seguro de vida de todo esto: ver más abajo, en
+# ultimo().
+SIN_DATOS_MS = 3000
+
+
+def _cerrar(sock):
+    """Cierra un socket sin quejarse si ya estaba cerrado o es None.
+
+    Se usa en TODOS los caminos de error. Un socket que no se cierra queda
+    ocupado para siempre y el ESP32 tiene muy pocos.
+    """
+    if sock is None:
+        return
+    try:
+        sock.close()
+    except Exception:
+        pass
+
 
 class ClienteVision:
 
@@ -42,6 +73,12 @@ class ClienteVision:
         self.buffer = b""
         self.ultimo_ms = 0          # cuándo llegó el último mensaje
         self.recibidos = 0
+        self.ultimo_intento_ms = 0  # cuándo se intentó reconectar por última vez
+
+        # Último momento en que SUPIMOS que la conexión estaba viva: o llegó
+        # un mensaje, o acabamos de conectar. Es distinto de `ultimo_ms`, que
+        # solo mira mensajes y es lo que usa el watchdog de los motores.
+        self.senal_ms = 0
 
     # ----------------------------------------------------------------------
     # Conexión
@@ -74,33 +111,77 @@ class ClienteVision:
             self.conectar_wifi()
 
         while True:
+            s = None
             try:
                 print("vision: conectando a {}:{}".format(self.host, self.puerto))
                 s = self.pool.socket(self.pool.AF_INET, self.pool.SOCK_STREAM)
-                s.settimeout(0.01)          # casi sin bloqueo
+
+                # El orden importa. Si se pone el timeout corto ANTES del
+                # connect, el handshake TCP hereda esos 10 ms y falla con
+                # ETIMEDOUT aunque el servidor esté perfecto del otro lado.
+                s.settimeout(TIMEOUT_CONECTAR_S)
                 s.connect((self.host, self.puerto))
+                s.settimeout(TIMEOUT_RECIBIR_S)   # recién ahora, el corto
+
                 self.sock = s
                 self.buffer = b""
+                self.senal_ms = time.monotonic_ns() // 1000000
                 print("vision: conectado")
                 return
             except Exception as e:
+                # CERRAR EL SOCKET FALLIDO, SIEMPRE.
+                #
+                # El ESP32 tiene una cantidad fija de sockets (unos 4 a 8).
+                # Un socket que se crea y no se cierra queda ocupado para
+                # siempre. Sin este cierre, cada intento fallido se come uno,
+                # y a los pocos segundos el robot muere con "Out of sockets":
+                # ya no puede abrir ninguno, aunque el servidor esté bien.
+                # Ni reiniciar el wifi lo salva, solo reiniciar la placa.
+                _cerrar(s)
                 print("vision: falló (", e, ") reintento en 1 s")
                 time.sleep(1)
 
     def reconectar(self):
-        """La conexión se cayó. Cerrar y volver a abrir.
+        """La conexión se cayó. Intenta UNA vez y vuelve enseguida.
 
-        Pasa: el router se satura, la PC de visión se reinicia, el Wi-Fi
-        parpadea. El robot no puede quedarse muerto por eso.
+        POR QUÉ NO SE QUEDA REINTENTANDO ACÁ ADENTRO
+        --------------------------------------------
+        Antes esta función llamaba a `conectar()`, que reintenta en un bucle
+        infinito. Eso dejaba el lazo de control COLGADO acá: `motores.aplicar()`
+        no se volvía a llamar nunca, así que los motores se quedaban con el
+        último valor que habían recibido y el robot seguía andando a ciegas
+        hasta chocar contra algo. Un robot sin telemetría tiene que FRENAR, no
+        seguir derecho.
+
+        Volviendo enseguida, el lazo sigue girando: el watchdog ve que la edad
+        del dato crece, para los motores, y en el ciclo siguiente se vuelve a
+        intentar la reconexión. El robot queda quieto y vivo hasta que la
+        señal vuelva.
         """
-        print("vision: reconectando")
-        try:
-            if self.sock:
-                self.sock.close()
-        except Exception:
-            pass
+        _cerrar(self.sock)
         self.sock = None
-        self.conectar()
+        self.buffer = b""
+
+        if self.pool is None:
+            return
+
+        ahora = time.monotonic_ns() // 1000000
+        if ahora - self.ultimo_intento_ms < REINTENTO_MS:
+            return                      # todavía no toca reintentar
+        self.ultimo_intento_ms = ahora
+
+        s = None
+        try:
+            s = self.pool.socket(self.pool.AF_INET, self.pool.SOCK_STREAM)
+            s.settimeout(TIMEOUT_CONECTAR_S)
+            s.connect((self.host, self.puerto))
+            s.settimeout(TIMEOUT_RECIBIR_S)
+            self.sock = s
+            self.senal_ms = ahora
+            print("vision: reconectado")
+        except Exception as e:
+            _cerrar(s)          # ver la nota en conectar(): si no, Out of sockets
+            print("vision: reconexión falló (", e, ")")
 
     # ----------------------------------------------------------------------
     # Recepción
@@ -114,7 +195,30 @@ class ClienteVision:
         porque ya están viejos.
         """
         if self.sock is None:
-            return None
+            # Sin socket: se intenta recuperarlo. reconectar() respeta su
+            # propio intervalo, así que llamarla en cada ciclo no satura nada.
+            self.reconectar()
+            if self.sock is None:
+                return None
+
+        # CONEXIÓN MUERTA POR SILENCIO
+        # ----------------------------
+        # No alcanza con esperar a que recv_into devuelva 0. Con el timeout de
+        # 10 ms, CircuitPython levanta OSError tanto cuando el servidor cerró
+        # como cuando simplemente todavía no hay datos — y son indistinguibles
+        # desde acá. Si solo confiáramos en eso, al caerse el servidor el robot
+        # se quedaría con un socket inservible, repitiendo "sin telemetría"
+        # para siempre, sin intentar reconectar nunca.
+        #
+        # El silencio sí es inequívoco: la visión publica a 20 Hz, o sea un
+        # mensaje cada 50 ms. Tres segundos sin nada son sesenta mensajes
+        # perdidos. Eso no es una pausa, es una conexión muerta.
+        ahora = time.monotonic_ns() // 1000000
+        if self.senal_ms and (ahora - self.senal_ms) > SIN_DATOS_MS:
+            print("vision: silencio de", ahora - self.senal_ms, "ms, reconectando")
+            self.reconectar()
+            if self.sock is None:
+                return None
 
         # 1. Traer todo lo que haya, sin bloquear.
         while True:
@@ -154,6 +258,7 @@ class ClienteVision:
 
         if msg is not None:
             self.ultimo_ms = time.monotonic_ns() // 1000000
+            self.senal_ms = self.ultimo_ms
 
         return msg
 

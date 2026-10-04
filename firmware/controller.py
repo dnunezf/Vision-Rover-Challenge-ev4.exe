@@ -5,13 +5,19 @@ Convierte "mi objetivo es el cubo verde" en "mové los motores así, ahora".
 Sin hardware: devuelve (avance, giro) y quien los aplica es motion.py. Así
 este módulo se prueba entero en la laptop.
 
+CUÁNDO ARRANCA
+--------------
+En READY, no en RUNNING. El reglamento del torneo (4.3) obliga a que la
+detección de READY dispare la estrategia, y el cronometraje arranca ahí
+(4.4). READY dura 60 segundos: esperar a RUNNING los regala.
+
 LOS ESTADOS DE UNA ENTREGA
-    ESPERANDO   → la ronda no arrancó, o el retardo de salida
+    ESPERANDO   → fase IDLE o FINISHED, o el retardo de salida
     IR_APROX    → viajar al punto de aproximación
     ALINEAR     → girar en el sitio hasta apuntar a la zona
     EMPUJAR     → avanzar recto llevando el cubo
     RETROCEDER  → soltar y despejar la vista de la cámara
-    VERIFICAR   → esperar dato fresco y comprobar si entró
+    VERIFICAR   → esperar el veredicto del árbitro
     LISTO       → no queda nada por hacer
 
 Cada estado con movimiento tiene TIMEOUT. Un rover trabado sin timeout gasta
@@ -55,9 +61,12 @@ RADIO_CEDER_PASO = 5.0        # celdas = 100 mm
 ANGULO_CEDER_PASO = 60.0      # solo cedo si lo tengo por delante
 
 # Timeouts
-TIMEOUT_IR_APROX_MS = 25000
+TIMEOUT_IR_APROX_MS = 55000
 TIMEOUT_ALINEAR_MS = 6000
-TIMEOUT_EMPUJAR_MS = 25000
+TIMEOUT_EMPUJAR_MS = 55000
+
+# El árbitro exige 1 segundo sostenido antes de dar un cubo por entregado, y
+# el retroceso tarda. 4 segundos cubren las dos cosas con margen.
 TIMEOUT_VERIFICAR_MS = 4000
 MAX_REINTENTOS = 3
 
@@ -130,7 +139,24 @@ class Controlador:
                     self.postergados.append(self.objetivo)
                 self.reintentos[self.objetivo] = 0
                 self.objetivo = None
-        self._ir_a(IR_APROX, ahora_ms)
+
+        # Reiniciar el cronómetro del estado SIEMPRE, aunque ya estemos en
+        # IR_APROX.
+        #
+        # _ir_a() no hace nada cuando el estado no cambia, así que si se
+        # abandona DESDE IR_APROX (por su propio timeout), `entrada_estado`
+        # quedaba intacto y el timeout seguía vencido. Al ciclo siguiente
+        # volvía a vencer, volvía a abandonar, y a los tres ciclos postergaba
+        # otro cubo. Para siempre, 25 veces por segundo, devolviendo (0, 0):
+        # el robot congelado gastando la ronda entera sin moverse.
+        #
+        # Detectado el 3-oct corriendo en el robot real contra el
+        # mock_publisher. El simulador no lo veía porque ahí el rover sí
+        # avanza y llega al punto antes de que el timeout se venza.
+        if self.estado == IR_APROX:
+            self.entrada_estado = ahora_ms
+        else:
+            self._ir_a(IR_APROX, ahora_ms)
 
     # ----------------------------------------------------------------------
     # Lazo de control
@@ -219,7 +245,9 @@ class Controlador:
         """Se llama una vez por mensaje. Devuelve (avance, giro)."""
         m = self.mundo
 
-        if not m.corriendo():
+        # READY cuenta como activa: el cronómetro oficial ya corre y el
+        # reglamento obliga a arrancar ahí (torneo.md 4.3 y 4.4).
+        if not m.activa():
             self.estado = ESPERANDO
             self.arranque_ronda = None
             return 0.0, 0.0
@@ -228,7 +256,7 @@ class Controlador:
             self.arranque_ronda = ahora_ms
 
         # Salida escalonada: los dos rovers salen del MISMO punto, y ese es
-        # el choque más probable de toda la ronda.
+        # el choque más probable de toda la ronda. Se cuenta desde READY.
         if ahora_ms - self.arranque_ronda < RETARDO_SALIDA_MS:
             return 0.0, 0.0
 
@@ -240,7 +268,8 @@ class Controlador:
 
         # --- elegir objetivo ---
         if self.estado in (ESPERANDO, IR_APROX):
-            self.objetivo = planner.mi_objetivo(m, self.objetivo, self.postergados)
+            self.objetivo = planner.mi_objetivo(m, self.objetivo,
+                                                self.postergados)
             if self.objetivo is None:
                 if self.estado != LISTO:
                     self._ir_a(LISTO, ahora_ms)
@@ -309,6 +338,14 @@ class Controlador:
                 est_col, est_row = world.adelante(
                     yo["col"], yo["row"], yo["theta"], self.offset_cubo)
 
+            # Si el árbitro ya lo dio por entregado, dejar de empujar YA.
+            # Seguir empujando un cubo que ya cuenta solo puede sacarlo, y
+            # sacarlo borra su tiempo (torneo.md 7.4 y 8.8).
+            if m.entregado(self.objetivo):
+                self.pos_retroceso = (yo["col"], yo["row"])
+                self._ir_a(RETROCEDER, ahora_ms)
+                return 0.0, 0.0
+
             # Freno cuando el CUBO llegó al centro de la zona, no cuando
             # llegué yo. Pasarme de la línea del borde hace que no cuente.
             if world.distancia(est_col, est_row, depot["col"], depot["row"]) < TOLERANCIA_ENTREGA:
@@ -321,8 +358,10 @@ class Controlador:
 
         # ------------------------------------------------------------------
         if self.estado == RETROCEDER:
-            # Apartarse NO es cortesía: el juez usa la última posición vista
-            # del cubo, y si lo tapo, se juzga con ese dato.
+            # Apartarse NO es cortesía: el árbitro necesita ver el cubo en su
+            # posición nueva para contarlo. Un cubo que YA estaba adentro y
+            # queda tapado sigue contando, pero uno tapado durante todo el
+            # empuje nunca se vio entrar.
             yo = m.yo()
             origen = self.pos_retroceso or (yo["col"], yo["row"])
             if world.distancia(yo["col"], yo["row"], origen[0], origen[1]) >= RETROCESO_CELDAS:
@@ -332,25 +371,29 @@ class Controlador:
 
         # ------------------------------------------------------------------
         if self.estado == VERIFICAR:
+            # El veredicto es del árbitro (in_depot), y tarda 1 segundo
+            # sostenido en ponerse en true. Por eso no se juzga al instante:
+            # se espera a que el dato esté fresco y se le cree a él.
             cubo_actual = m.cubo(self.objetivo)
             fresco = cubo_actual and cubo_actual["age_ms"] < EDAD_FRESCA_MS
 
-            if fresco:
-                if m.entregado(self.objetivo):
-                    print("ENTREGADO", self.objetivo,
-                          "| restan", m.restante_ms() // 1000, "s")
-                    self.objetivo = None
-                    self._ir_a(IR_APROX, ahora_ms)
-                else:
-                    falta = m.falta_para_entregar(self.objetivo)
-                    print("no entró:", self.objetivo, "falta", round(falta, 2))
-                    # Le paso cuánto faltó: si estuvo casi dentro, no cuenta
-                    # como intento fallido.
-                    self._abandonar(ahora_ms, falta)
+            if fresco and m.entregado(self.objetivo):
+                print("ENTREGADO", self.objetivo,
+                      "| restan", m.restante_ms() // 1000, "s")
+                self.objetivo = None
+                self._ir_a(IR_APROX, ahora_ms)
                 return 0.0, 0.0
 
+            # Todavía no: se le da tiempo a la permanencia antes de declarar
+            # el fallo. Solo al vencer el timeout se cuenta como intento.
             if self._en_estado_ms(ahora_ms) > TIMEOUT_VERIFICAR_MS:
-                self._abandonar(ahora_ms)   # no se despejó: reintentar de cero
+                falta = m.falta_para_entregar(self.objetivo)
+                if falta is None:
+                    print("no entró:", self.objetivo, "(sin dato)")
+                    self._abandonar(ahora_ms)
+                else:
+                    print("no entró:", self.objetivo, "falta", round(falta, 2))
+                    self._abandonar(ahora_ms, falta)
             return 0.0, 0.0
 
         return 0.0, 0.0

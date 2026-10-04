@@ -20,11 +20,22 @@ girando. Quien decide cuándo moverse es el controlador, mirando la fase de la
 telemetría. Durante IDLE el robot está encendido y conectado, quieto; en
 cuanto ve READY, sale solo.
 
-El LED dice en qué está, y eso se puede leer de un vistazo en la cancha:
+EL LED: UN COLOR POR ESTADO
+---------------------------
+En la cancha el robot va SIN CABLE, así que no hay consola. El LED es toda la
+información disponible, y por eso lleva un color por estado y no solo tres:
 
-    rojo      sin telemetría fresca (watchdog)
-    amarillo  conectado, esperando READY
-    verde     trabajando
+    ROJO       sin telemetría fresca (watchdog) — está ciego y frenado
+    AMARILLO   conectado, esperando READY
+    VERDE      yendo al punto de aproximación
+    AZUL       alineándose
+    CELESTE    empujando el cubo
+    MAGENTA    retrocediendo o esperando el veredicto del árbitro
+    BLANCO     terminó, no le queda nada por hacer
+
+Con tres colores, un robot quieto en verde podía ser tres cosas distintas:
+trabado alineándose, sin llegar al punto, o esperando el veredicto. Con uno por
+estado se sabe desde el otro lado de la mesa.
 
 EL WATCHDOG
 -----------
@@ -59,6 +70,24 @@ PERIODO_LOG_MS = 1000
 ROJO = (64, 0, 0)
 AMARILLO = (64, 64, 0)
 VERDE = (0, 64, 0)
+AZUL = (0, 0, 64)
+CELESTE = (0, 48, 48)
+MAGENTA = (48, 0, 48)
+BLANCO = (48, 48, 48)
+
+
+# Un color por estado del controller. Se arma después de importarlo para usar
+# sus constantes y no cadenas sueltas: si mañana se renombra un estado, esto
+# deja de compilar en vez de quedarse mostrando el color de otro.
+COLOR_DE_ESTADO = {
+    controller.ESPERANDO:  AMARILLO,
+    controller.IR_APROX:   VERDE,
+    controller.ALINEAR:    AZUL,
+    controller.EMPUJAR:    CELESTE,
+    controller.RETROCEDER: MAGENTA,
+    controller.VERIFICAR:  MAGENTA,
+    controller.LISTO:      BLANCO,
+}
 
 
 def ahora_ms():
@@ -107,6 +136,7 @@ print("CONECTADO. Esperando READY por telemetría. No hay que apretar nada.")
 t_ultimo_log = 0
 vueltas = 0
 t_inicio = ahora_ms()
+color_actual = AMARILLO
 
 while True:
     t = ahora_ms()
@@ -121,7 +151,9 @@ while True:
     #    ninguna lógica sirve con información vieja.
     if cliente.edad_ms() > WATCHDOG_MS:
         motores.parar()
-        ib.pixel = ROJO
+        if color_actual != ROJO:
+            ib.pixel = ROJO
+            color_actual = ROJO
         time.sleep(0.02)
         continue
 
@@ -132,13 +164,21 @@ while True:
         # Un error en la lógica no puede dejar los motores encendidos.
         print("ERROR en controller:", e)
         motores.parar()
+        ib.pixel = ROJO
+        color_actual = ROJO
         time.sleep(0.1)
         continue
 
     # 4. MOVER.
     motores.aplicar(v, w)
 
-    ib.pixel = VERDE if mundo.activa() else AMARILLO
+    # 4b. EL LED. Solo se escribe cuando CAMBIA: escribirlo en cada vuelta
+    #     cuesta tiempo del lazo para mostrar lo mismo.
+    color = AMARILLO if not mundo.activa() else COLOR_DE_ESTADO.get(
+        ctrl.estado, VERDE)
+    if color != color_actual:
+        ib.pixel = color
+        color_actual = color
 
     # 5. LOG, una vez por segundo.
     if t - t_ultimo_log > PERIODO_LOG_MS:

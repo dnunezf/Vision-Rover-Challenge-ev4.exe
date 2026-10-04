@@ -18,6 +18,18 @@ cubos y cierra la ronda, así que manda sobre cualquier cuenta nuestra.
 import math
 
 
+def _hipotenusa(dx, dy):
+    """sqrt(dx² + dy²), escrito a mano.
+
+    CircuitPython NO trae math.hypot. Su módulo math tiene sqrt, atan2,
+    degrees, radians, cos y sin, pero no hypot — está documentado en
+    docs.circuitpython.org. En la laptop funciona porque ahí corre Python
+    normal, así que el simulador nunca lo detecta: el error aparece recién en
+    el robot, en el primer ciclo, y tumba todo.
+    """
+    return math.sqrt(dx * dx + dy * dy)
+
+
 # --------------------------------------------------------------------------
 # Geometría
 # --------------------------------------------------------------------------
@@ -50,7 +62,7 @@ def rumbo_hacia(col_a, row_a, col_b, row_b):
 
 def distancia(col_a, row_a, col_b, row_b):
     """Distancia en celdas entre dos puntos. Para pasar a mm: × cell_mm."""
-    return math.hypot(col_b - col_a, row_b - row_a)
+    return _hipotenusa(col_b - col_a, row_b - row_a)
 
 
 def adelante(col, row, theta, celdas):
@@ -115,7 +127,7 @@ def cubo_en_zona(cubo, depot, depot_size, grid, cube_side):
     exceso_col = max(0.0, abs(cubo["col"] - depot["col"]) - (semi_col - margen))
     exceso_row = max(0.0, abs(cubo["row"] - depot["row"]) - (semi_row - margen))
 
-    falta = math.hypot(exceso_col, exceso_row)
+    falta = _hipotenusa(exceso_col, exceso_row)
     return (falta == 0.0), falta
 
 
