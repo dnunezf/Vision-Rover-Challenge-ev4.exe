@@ -91,6 +91,35 @@ ANGULO_CEDER_PASO = 60.0      # más lejos que RADIO_CONTACTO, solo si lo tengo 
 THROTTLE_APARTARSE = 0.40
 MS_APARTARSE = 1200
 
+# --- atasco: le estoy dando motor y no me muevo ---------------------------
+#
+# [MEDIDO 4-oct-2026, sesion_20261004_124716.ndjson] El rover 10 pasó 66
+# segundos con el controlador ordenándole v=0.450 sin parar, y su posición se
+# movió 0.06 celdas — ruido de la cámara. Contra una pared, contra el
+# compañero o con una rueda trabada, el lazo proporcional no se entera: sigue
+# pidiendo avance contra algo que no cede hasta que vence el timeout de 55 s,
+# y ahí ya se fue un noveno de la ronda.
+#
+# No hace falta hardware nuevo para detectarlo: la telemetría ya dice dónde
+# estoy veinte veces por segundo. Si pido motor y no me muevo, estoy atascado.
+#
+# El umbral es generoso a propósito. El ruido de posición medido con el robot
+# QUIETO en la cancha fue 0.29 celdas/s, así que en 2 segundos un robot
+# parado puede "recorrer" medio celda sin moverse. 1.0 celdas en 2000 ms deja
+# margen de sobra sin dejar pasar un atasco de verdad.
+MS_PARA_ATASCO = 2000
+MS_DESATASCAR = 1000
+
+# El umbral NO puede ser una distancia fija. El lazo es proporcional: al
+# acercarse al objetivo baja el throttle, y un rover avanzando despacio a
+# propósito recorre poco sin estar atascado. Con un umbral fijo de 1.0 celdas
+# el detector saltaba en cada aproximación: 770 disparos en 100 corridas, y el
+# éxito a dificultad 0.8 bajaba de 42% a 40%.
+#
+# Así que se compara contra lo que ESE throttle debería haber recorrido.
+CELDAS_POR_S_A_FONDO = 6.0    # igual que el simulador [MEDIDO 3-oct]
+FRACCION_ATASCO = 0.25        # menos del 25% de lo esperado = atascado
+
 # Timeouts
 TIMEOUT_IR_APROX_MS = 55000
 TIMEOUT_ALINEAR_MS = 6000
@@ -107,6 +136,7 @@ MAX_REINTENTOS = 3
 FALTA_CASI_DENTRO = 1.0       # celdas = 20 mm
 
 ESPERANDO = "ESPERANDO"
+DESATASCAR = "DESATASCAR"
 APARTARSE = "APARTARSE"
 IR_APROX = "IR_APROX"
 ALINEAR = "ALINEAR"
@@ -132,6 +162,13 @@ class Controlador:
         self.postergados = []
         self.pos_retroceso = None
         self.offset_cubo = None
+        # Detector de atasco: dónde estaba y cuándo, la última vez que me
+        # moví de verdad.
+        self.pose_testigo = None
+        self.testigo_ms = ahora_ms
+        self.v_testigo = 0.0
+        self.w_testigo = 0.0
+        self.lado_desatasco = 1.0
 
     # ----------------------------------------------------------------------
     # Transiciones
@@ -314,7 +351,78 @@ class Controlador:
     # Un ciclo
     # ----------------------------------------------------------------------
 
+    def _progreso(self, yo, transcurrido_ms):
+        """(recorrido real, recorrido esperado) desde el testigo.
+
+        Mide AVANCE, no giro. Lo esperado sale de la velocidad a fondo medida
+        el 3-oct, escalada por el throttle que se pidió. No hace falta que sea
+        exacto: solo distingue "se mueve despacio porque el lazo bajó la
+        potencia al acercarse" de "no se mueve".
+
+        PROBADO Y DESCARTADO (4-oct): medir también el GIRO con la misma vara.
+        El giro es proporcional al error, así que el throttle baja mientras el
+        robot gira, y lo "esperado" calculado con el throttle inicial queda
+        siempre por encima de lo real; además `normalizar` corta en 180 grados
+        y un giro largo se contabiliza mal. Daba atasco en giros perfectamente
+        normales. Un giro bloqueado ya lo acota el timeout de ALINEAR.
+        """
+        segundos = transcurrido_ms / 1000.0
+        real = world.distancia(yo["col"], yo["row"],
+                               self.pose_testigo[0], self.pose_testigo[1])
+        return real, abs(self.v_testigo) * CELDAS_POR_S_A_FONDO * segundos
+
+    def _atascado(self, ahora_ms):
+        """¿Le estoy dando motor sin moverme?
+
+        El testigo lo refresca `_actualizar_testigo` cada vez que el robot
+        progresa de verdad o deja de pedir motor. Si sigue en pie pasados
+        MS_PARA_ATASCO, es que llevo ese tiempo empujando contra algo.
+        """
+        if self.pose_testigo is None:
+            return False
+        yo = self.mundo.yo()
+        if yo is None:
+            return False
+        transcurrido = ahora_ms - self.testigo_ms
+        if transcurrido <= MS_PARA_ATASCO:
+            return False
+        real, esperado = self._progreso(yo, transcurrido)
+        return real < esperado * FRACCION_ATASCO
+
+    def _actualizar_testigo(self, ahora_ms, v, w):
+        """Lleva la cuenta de la última vez que el robot se movió de verdad."""
+        yo = self.mundo.yo()
+        if yo is None or abs(v) < 0.1:
+            self.pose_testigo = None
+            self.testigo_ms = ahora_ms
+            return
+        if self.pose_testigo is None:
+            self.pose_testigo = (yo["col"], yo["row"], yo["theta"])
+            self.testigo_ms = ahora_ms
+            self.v_testigo, self.w_testigo = v, w
+            return
+        real, esperado = self._progreso(yo, ahora_ms - self.testigo_ms)
+        if real >= esperado * FRACCION_ATASCO:
+            self.pose_testigo = (yo["col"], yo["row"], yo["theta"])
+            self.testigo_ms = ahora_ms
+            self.v_testigo, self.w_testigo = v, w
+
+    def _maniobra_desatascar(self):
+        """Salir de donde sea que me haya trabado: atrás y girando.
+
+        Hacia qué lado gira se alterna en cada atasco (`lado_desatasco`): si
+        el primer intento no sirvió, el segundo prueba por el otro lado en vez
+        de repetir el mismo movimiento contra el mismo obstáculo.
+        """
+        return -THROTTLE_APARTARSE, THROTTLE_GIRO * self.lado_desatasco
+
     def paso(self, ahora_ms):
+        """Un ciclo. Devuelve (avance, giro) y actualiza el detector de atasco."""
+        v, w = self._decidir(ahora_ms)
+        self._actualizar_testigo(ahora_ms, v, w)
+        return v, w
+
+    def _decidir(self, ahora_ms):
         """Se llama una vez por mensaje. Devuelve (avance, giro)."""
         m = self.mundo
 
@@ -366,6 +474,28 @@ class Controlador:
         if self._debo_ceder():
             self._ir_a(APARTARSE, ahora_ms)
             return self._maniobra_apartarse()
+
+        # --- atasco ---------------------------------------------------------
+        # Pedí motor y no me moví. Puede ser el borde de la cancha, el
+        # compañero por un ángulo que la evasión no cubre, un cubo contra la
+        # pared o una rueda trabada. La causa no importa: la salida es la
+        # misma, despegarse y volver a intentar. Sin esto, el rover se queda
+        # empujando hasta el timeout de 55 segundos.
+        if self.estado == DESATASCAR:
+            if self._en_estado_ms(ahora_ms) > MS_DESATASCAR:
+                self.pose_testigo = None
+                self.testigo_ms = ahora_ms
+                self._ir_a(IR_APROX, ahora_ms)
+                return 0.0, 0.0
+            return self._maniobra_desatascar()
+
+        if self._atascado(ahora_ms):
+            print("atascado en", self.estado, "- me despego")
+            self.lado_desatasco = -self.lado_desatasco
+            self.pose_testigo = None
+            self.testigo_ms = ahora_ms
+            self._ir_a(DESATASCAR, ahora_ms)
+            return self._maniobra_desatascar()
 
         # --- elegir objetivo ---
         if self.estado in (ESPERANDO, IR_APROX):

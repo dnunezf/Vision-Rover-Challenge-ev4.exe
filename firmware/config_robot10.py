@@ -28,7 +28,15 @@ WIFI_PASSWORD = "PONER_AQUI"
 # La IP de la COMPUTADORA que corre el sistema de vision, no la de la camara
 # (la camara es USB, no tiene IP). Se saca con ipconfig en esa maquina.
 # Nunca 127.0.0.1: el robot es otro aparato en la red.
-VISION_HOST = "192.168.1.100"
+#
+# OJO: ESTE NUMERO CAMBIA EN EL TORNEO. Es la IP de la laptop en la red de
+# CENFOTEC, que no es la de la casa. Hay que preguntarla y ponerla en LOS DOS
+# robots antes de la primera ronda.
+#
+# Este archivo tenia 192.168.1.100 —un valor de ejemplo que nunca existio—
+# mientras config_robot11.py tenia la IP de verdad. Un robot conectaba y el
+# otro no, y el sintoma era identico a un problema de firewall.
+VISION_HOST = "192.168.100.3"     # [CAMBIAR EN EL TORNEO]
 VISION_PUERTO = 2026
 
 # --- motores  [LLENAR CON LO QUE SALGA DE p5] ----------------------------
