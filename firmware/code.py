@@ -30,15 +30,21 @@ EL LED: UN COLOR POR ESTADO
 En la cancha el robot va SIN CABLE, así que no hay consola. El LED es toda la
 información disponible, y por eso lleva un color por estado y no solo tres:
 
-    ROJO       sin telemetría fresca (watchdog) — está ciego y frenado
+    ROJO       PROBLEMA: sin telemetría fresca (watchdog) o error en el
+               código. Está ciego y con los motores frenados.
     AMARILLO   conectado, en IDLE o FINISHED
     NARANJA    en READY: recibiendo y planificando, quieto a propósito
-    ROJO fijo  en APARTARSE: despegándose del compañero
     VERDE      yendo al punto de aproximación
     AZUL       alineándose
     CELESTE    empujando el cubo
     MAGENTA    retrocediendo o esperando el veredicto del árbitro
-    BLANCO     terminó, no le queda nada por hacer
+    BLANCO     un segundo o dos: maniobra de escape (APARTARSE, DESATASCAR)
+               fijo al final de la ronda: terminó, no le queda nada (LISTO)
+
+El ROJO queda SOLO para problemas. Hasta el 4-oct también lo usaba APARTARSE,
+y entonces "se puso rojo" no distinguía "se está apartando, todo bien" de
+"está ciego y frenado", que es justo la pregunta que había que contestar
+mirando la luz.
 
 Con tres colores, un robot quieto en verde podía ser tres cosas distintas:
 trabado alineándose, sin llegar al punto, o esperando el veredicto. Con uno por
@@ -89,7 +95,8 @@ BLANCO = (48, 48, 48)
 # deja de compilar en vez de quedarse mostrando el color de otro.
 COLOR_DE_ESTADO = {
     controller.ESPERANDO:  AMARILLO,
-    controller.APARTARSE:  ROJO,      # despegándose del compañero
+    controller.APARTARSE:  BLANCO,    # maniobra: despegándose del compañero
+    controller.DESATASCAR: BLANCO,    # maniobra: despegándose de un atasco
     controller.IR_APROX:   VERDE,
     controller.ALINEAR:    AZUL,
     controller.EMPUJAR:    CELESTE,
