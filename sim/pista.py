@@ -70,6 +70,21 @@ PROB_PERDIDA_ROVER = 0.02 # 2% de los cuadros no se ve un rover
 #
 # Con esto se puede medir qué pasa cuando la cámara falla de verdad, que es lo
 # que no se podía antes. Se activa con --camara mala.
+# --- el marcador de cada robot, pegado como en los robots de VERDAD --------
+# [MEDIDO 5-oct-2026] En los dos robots el marcador está girado un cuarto de
+# vuelta respecto del frente (ver world.DESFASE_MARCADOR). La cámara publica
+# el ángulo del MARCADOR, así que el simulador también: theta publicado =
+# frente real - desfase.
+#
+# Hasta hoy el simulador publicaba el ángulo del frente, como si los
+# marcadores estuvieran perfectos. Fue la segunda vez que el simulador medía
+# un mundo que no existe: el firmware giraba bien hacia el objetivo y salía
+# 90° de costado, pero eso solo pasaba en la cancha.
+#
+# Se copia de world.py al importar, para que apagar la corrección del
+# firmware en una prueba NO apague también el desfase físico.
+DESFASE_FISICO = dict(world.DESFASE_MARCADOR)
+
 PROB_APAGON = 0.0          # probabilidad por cuadro de que empiece un apagón
 APAGON_MS = (2000, 20000)  # cuánto dura cada uno
 
@@ -254,9 +269,10 @@ class Pista:
         for r in self.rovers:
             if not apagon and self.rng.random() >= PROB_PERDIDA_ROVER:
                 # Se ve: actualizo lo reportado, con ruido.
+                marcador = r.theta - DESFASE_FISICO.get(r.id, 0.0)
                 r.rep = (r.col + self.rng.gauss(0, RUIDO_POS),
                          r.row + self.rng.gauss(0, RUIDO_POS),
-                         (r.theta + self.rng.gauss(0, RUIDO_THETA)) % 360.0)
+                         (marcador + self.rng.gauss(0, RUIDO_THETA)) % 360.0)
                 r.visto_ms = self.t_ms
             # Si no se ve, rep queda como estaba y age_ms crece solo.
             rovers.append({"id": r.id, "col": round(r.rep[0], 3),
@@ -413,7 +429,13 @@ def main():
     ap.add_argument("--semilla", type=int, default=2026)
     ap.add_argument("--camara", choices=("buena", "mala"), default="buena",
                     help="mala = apagones de camara como los del 4-oct")
+    ap.add_argument("--marcador", choices=("como_los_nuestros", "alineado"),
+                    default="como_los_nuestros",
+                    help="alineado = marcadores pegados derechos (desfase 0)")
     args = ap.parse_args()
+
+    if args.marcador == "alineado":
+        DESFASE_FISICO.clear()
 
     if args.camara == "mala":
         global PROB_APAGON
