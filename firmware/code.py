@@ -57,6 +57,7 @@ sigue avanzando se sale de la cancha o embiste al compañero; uno que frena
 solo pierde unos segundos y se recupera cuando vuelve la señal.
 """
 
+import gc
 import time
 
 from ideaboard import IdeaBoard
@@ -154,66 +155,116 @@ vueltas = 0
 t_inicio = ahora_ms()
 color_actual = AMARILLO
 
+def memoria_libre():
+    """Bytes libres. CircuitPython lo tiene; Python normal no (en la laptop)."""
+    return gc.mem_free() if hasattr(gc, "mem_free") else -1
+
+
+# EL LAZO NO PUEDE MORIRSE
+# ------------------------
+# [MEDIDO 5-oct-2026, ronda de las 10:22] El robot 10 dejó de leer telemetría
+# en pleno IDLE y se quedó así toda la ronda: la cámara lo veía perfecto, el
+# sistema de visión descartaba el 100% de sus mensajes, y nunca se desconectó
+# ni se reconectó. Es lo que pasa cuando el programa TERMINA: la placa sigue
+# prendida, el socket queda abierto y nadie lo lee. El domingo a las 12:47 el
+# mismo robot hizo lo mismo.
+#
+# La lectura de telemetría estaba fuera de todo try. Cualquier error ahí
+# —y en la placa del robot 10, que ya dio MemoryError al subirle archivos,
+# el candidato obvio es quedarse sin memoria— subía hasta acá y terminaba el
+# programa. Un robot que se muere en IDLE pierde la ronda entera sin moverse.
+#
+# Ahora todo el cuerpo del lazo está protegido. Ante un error: motores a cero,
+# luz roja, limpiar memoria, y seguir. Si el error era pasajero, el robot se
+# recupera solo en la vuelta siguiente.
 while True:
-    t = ahora_ms()
-    vueltas += 1
+    try:
+        t = ahora_ms()
+        vueltas += 1
 
-    # 1. RECIBIR. Devuelve el mensaje más nuevo, o None si no llegó nada.
-    msg = cliente.ultimo()
-    if msg is not None:
-        mundo.actualizar(msg)
+        # 1. RECIBIR. Devuelve el mensaje más nuevo, o None si no llegó nada.
+        msg = cliente.ultimo()
+        if msg is not None:
+            mundo.actualizar(msg)
 
-    # 2. WATCHDOG. Sin datos frescos, no se mueve. Va ANTES de decidir:
-    #    ninguna lógica sirve con información vieja.
-    if cliente.edad_ms() > WATCHDOG_MS:
+        # 2. WATCHDOG. Sin datos frescos, no se mueve. Va ANTES de decidir:
+        #    ninguna lógica sirve con información vieja.
+        if cliente.edad_ms() > WATCHDOG_MS:
+            motores.parar()
+            if color_actual != ROJO:
+                ib.pixel = ROJO
+                color_actual = ROJO
+            time.sleep(0.02)
+            continue
+
+        # 3. DECIDIR, solo cuando llegó un mensaje NUEVO.
+        #
+        #    El lazo da varias vueltas por cada mensaje (20 por segundo), y
+        #    antes el controlador recalculaba lo mismo en cada una: el reparto
+        #    entero, con todas sus listas, dos o tres veces por mensaje. En
+        #    una placa justa de memoria eso es basura de más. Decidiendo una
+        #    vez por mensaje el robot hace exactamente lo que hace en el
+        #    simulador, que también decide una vez por mensaje.
+        if msg is not None:
+            try:
+                v, w = ctrl.paso(t)
+            except MemoryError:
+                raise
+            except Exception as e:
+                # Un error en la lógica no puede dejar los motores encendidos.
+                print("ERROR en controller:", e)
+                motores.parar()
+                ib.pixel = ROJO
+                color_actual = ROJO
+                time.sleep(0.1)
+                continue
+
+            # 4. MOVER.
+            motores.aplicar(v, w)
+
+        # 4b. EL LED. Solo se escribe cuando CAMBIA: escribirlo en cada vuelta
+        #     cuesta tiempo del lazo para mostrar lo mismo.
+        # NARANJA = en READY, planificando quieto. Sirve para ver de un vistazo
+        # que el robot SÍ está recibiendo telemetría durante ese minuto, aunque
+        # no se mueva: amarillo e inmóvil no distingue "esperando" de "colgado".
+        if mundo.puede_moverse():
+            color = COLOR_DE_ESTADO.get(ctrl.estado, VERDE)
+        elif mundo.puede_planificar():
+            color = NARANJA
+        else:
+            color = AMARILLO
+        if color != color_actual:
+            ib.pixel = color
+            color_actual = color
+
+        # 5. LOG, una vez por segundo. De paso se ordena la memoria: una vez
+        #    por segundo cuesta poco, y la deja ordenada antes de que haga
+        #    falta. La memoria libre va en el log para verla en la consola.
+        if t - t_ultimo_log > PERIODO_LOG_MS:
+            gc.collect()
+            hz = vueltas * 1000.0 / max(1, t - t_inicio)
+            yo = mundo.yo()
+            pos = "({:.1f},{:.1f})".format(yo["col"], yo["row"]) if yo else "??"
+            print("{:5.1f}Hz | {} | {} | {} | obj={} | edad={}ms | mem={}".format(
+                hz, mundo.fase(), ctrl.estado, pos, ctrl.objetivo,
+                cliente.edad_ms(), memoria_libre()))
+            t_ultimo_log = t
+
+        # 6. Respirar. El lazo no tiene que ir más rápido que la telemetría.
+        time.sleep(0.01)
+
+    except MemoryError:
         motores.parar()
+        gc.collect()
+        print("SIN MEMORIA en el lazo, sigo. Libre ahora:", memoria_libre())
         if color_actual != ROJO:
             ib.pixel = ROJO
             color_actual = ROJO
-        time.sleep(0.02)
-        continue
-
-    # 3. DECIDIR. El controlador mira la fase y decide si le toca moverse.
-    try:
-        v, w = ctrl.paso(t)
+        time.sleep(0.05)
     except Exception as e:
-        # Un error en la lógica no puede dejar los motores encendidos.
-        print("ERROR en controller:", e)
         motores.parar()
-        ib.pixel = ROJO
-        color_actual = ROJO
+        print("ERROR en el lazo, sigo:", e)
+        if color_actual != ROJO:
+            ib.pixel = ROJO
+            color_actual = ROJO
         time.sleep(0.1)
-        continue
-
-    # 4. MOVER.
-    motores.aplicar(v, w)
-
-    # 4b. EL LED. Solo se escribe cuando CAMBIA: escribirlo en cada vuelta
-    #     cuesta tiempo del lazo para mostrar lo mismo.
-    # NARANJA = en READY, planificando quieto. Sirve para ver de un vistazo
-    # que el robot SÍ está recibiendo telemetría durante ese minuto, aunque
-    # no se mueva: amarillo e inmóvil no distingue "esperando" de "colgado".
-    if mundo.puede_moverse():
-        color = COLOR_DE_ESTADO.get(ctrl.estado, VERDE)
-    elif mundo.puede_planificar():
-        color = NARANJA
-    else:
-        color = AMARILLO
-    if color != color_actual:
-        ib.pixel = color
-        color_actual = color
-
-    # 5. LOG, una vez por segundo.
-    if t - t_ultimo_log > PERIODO_LOG_MS:
-        hz = vueltas * 1000.0 / max(1, t - t_inicio)
-        yo = mundo.yo()
-        pos = "({:.1f},{:.1f})".format(yo["col"], yo["row"]) if yo else "??"
-        print("{:5.1f}Hz | {} | {} | {} | obj={} | edad={}ms".format(
-            hz, mundo.fase(), ctrl.estado, pos, ctrl.objetivo,
-            cliente.edad_ms()))
-        t_ultimo_log = t
-
-    # 6. Respirar. El lazo no tiene que ir más rápido que la telemetría:
-    #    correr a 200 Hz con datos que llegan a 20 Hz es gastar CPU para
-    #    recalcular lo mismo veinte veces.
-    time.sleep(0.01)

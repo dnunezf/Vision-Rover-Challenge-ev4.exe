@@ -22,6 +22,7 @@ Por eso `ultimo()` vacía el socket y devuelve solo el último. No se encolan
 mensajes: en tiempo real, la cola es latencia acumulada.
 """
 
+import gc
 import json
 import time
 
@@ -73,6 +74,13 @@ class ClienteVision:
         self.buffer = b""
         self.ultimo_ms = 0          # cuándo llegó el último mensaje
         self.recibidos = 0
+        self.sin_memoria = 0        # veces que faltó memoria al leer
+
+        # Un solo pedazo de memoria para recibir, reservado UNA vez. Antes se
+        # creaba un bytearray de 1 KB en cada vuelta del lazo, llegaran datos
+        # o no: unas 50 veces por segundo, 50 KB/s de basura en una placa
+        # que tiene unos 100 KB en total.
+        self._chunk = bytearray(1024)
         self.ultimo_intento_ms = 0  # cuándo se intentó reconectar por última vez
 
         # Último momento en que SUPIMOS que la conexión estaba viva: o llegó
@@ -220,41 +228,70 @@ class ClienteVision:
             if self.sock is None:
                 return None
 
-        # 1. Traer todo lo que haya, sin bloquear.
-        while True:
-            try:
-                chunk = bytearray(1024)
-                n = self.sock.recv_into(chunk)
-                if n == 0:
-                    # El servidor cerró del otro lado.
+        # 1. Traer lo que haya, sin bloquear, y 2. quedarse con la ÚLTIMA
+        #    línea completa.
+        #
+        # Todo esto puede quedarse sin memoria en la placa del robot 10 (el
+        # 5-oct dio MemoryError hasta al subirle un archivo). Antes, un
+        # MemoryError al cortar las líneas no lo atrapaba nadie: subía hasta
+        # code.py y TERMINABA el programa, con el robot prendido, el socket
+        # abierto y nadie leyendo. Ahora se descarta lo acumulado, se ordena
+        # la memoria y se sigue: un mensaje perdido no importa, llegan veinte
+        # por segundo.
+        try:
+            while True:
+                try:
+                    n = self.sock.recv_into(self._chunk)
+                    if n == 0:
+                        # El servidor cerró del otro lado.
+                        self.reconectar()
+                        return None
+                    self.buffer += bytes(self._chunk[:n])
+                except OSError:
+                    # No hay más datos ahora mismo. Normal, no es error.
+                    break
+                except MemoryError:
+                    raise
+                except Exception:
                     self.reconectar()
                     return None
-                self.buffer += bytes(chunk[:n])
-            except OSError:
-                # No hay más datos ahora mismo. Normal, no es error.
-                break
-            except Exception:
-                self.reconectar()
-                return None
 
-            # Un tope por si el servidor manda más rápido de lo que leemos.
-            if len(self.buffer) > 16384:
-                break
+                # Tope: cuatro mensajes. Si hay más esperando, se leen en la
+                # vuelta siguiente. El tope anterior era 16 KB, y armar un
+                # bloque así de una vez es justo lo que no entra en una
+                # memoria fragmentada.
+                if len(self.buffer) > 4096:
+                    break
 
-        # 2. Cortar por saltos de línea y quedarse con la ÚLTIMA completa.
-        msg = None
-        while b"\n" in self.buffer:
-            linea, self.buffer = self.buffer.split(b"\n", 1)
-            linea = linea.strip()
+            if b"\n" not in self.buffer:
+                if len(self.buffer) > 8192:
+                    self.buffer = b""   # basura sin saltos de línea: afuera
+                return None             # todavía llegando la primera línea
+
+            # UN solo corte. Antes se cortaba línea por línea, y cada corte
+            # copiaba todo lo que quedaba del buffer; con cinco mensajes
+            # esperando eran cinco copias y cinco json.loads para quedarse
+            # con el último. Ahora se parsea solo el último.
+            partes = self.buffer.split(b"\n")
+            self.buffer = partes[-1]    # lo que quedó a medio llegar
+            linea = b""
+            i = len(partes) - 2
+            while i >= 0 and not linea:
+                linea = partes[i].strip()
+                i -= 1
+            partes = None
             if not linea:
-                continue
-            try:
-                msg = json.loads(linea)
-                self.recibidos += 1
-            except Exception:
-                # Línea cortada o basura: se descarta y se sigue. Un mensaje
-                # perdido no importa, llegan veinte por segundo.
-                pass
+                return None
+            msg = json.loads(linea)
+            self.recibidos += 1
+        except MemoryError:
+            self.buffer = b""
+            self.sin_memoria += 1
+            gc.collect()
+            return None
+        except Exception:
+            # Línea cortada o basura: se descarta. Llegan veinte por segundo.
+            return None
 
         if msg is not None:
             self.ultimo_ms = time.monotonic_ns() // 1000000

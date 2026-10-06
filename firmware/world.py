@@ -38,6 +38,40 @@ EDAD_MAXIMA_POSE_MS = 1000
 # ELEGIR a cuál ir; planner lo manda al final de la fila en vez de descartarlo.
 EDAD_MAXIMA_CUBO_MS = 5000
 
+# ---------------------------------------------------------------------------
+# El MARCADOR de cada robot está pegado girado un cuarto de vuelta
+# ---------------------------------------------------------------------------
+# [MEDIDO 5-oct-2026, cuatro grabaciones de dos días]
+#
+# Cuando un robot avanza en línea recta, se mueve hacia donde apunta su
+# FRENTE. Comparando esa dirección de avance con el theta que publica la
+# visión, en todos los tramos rectos limpios de las cuatro sesiones:
+#
+#     robot 10: 39 tramos, mediana -87°   (ninguno cerca de 0°)
+#     robot 11:  8 tramos, mediana -89°   (ninguno cerca de 0°)
+#
+# O sea: NUNCA un robot avanzó hacia donde el sistema decía que apuntaba.
+# Siempre se fue 90° a la derecha. El theta del contrato es el del MARCADOR,
+# y el marcador está pegado girado respecto del frente (las paletas).
+#
+# CENFOTEC tiene un parámetro para esto, deteccion_rovers.desfase_angular_grados
+# en su config_vision.json, y lo midió en SU robot: dio 0°. Pero es uno solo
+# para todos los rovers, vale para el robot que midieron, y en el torneo corre
+# la configuración de ellos. La corrección tiene que vivir acá.
+#
+# Con el marcador girado, el controlador giraba hasta "apuntar" al objetivo y
+# después avanzaba 90° de costado: el robot se iba de la cancha o daba vueltas.
+# Es el "iban sin rumbo" del domingo y el "se salieron" de todas las rondas.
+#
+# Misma convención que la de CENFOTEC: lo que hay que SUMARLE al theta
+# publicado para obtener el frente real. Se usa -90 y no -87/-89: el marcador
+# se pegó a escuadra con el chasis, y 2-3 grados quedan dentro de la
+# tolerancia de alineación (6°) y del ruido de la medición.
+#
+# SI SE DESPEGA O SE VUELVE A PEGAR UN MARCADOR, ESTE NÚMERO HAY QUE MEDIRLO
+# DE NUEVO. Pegado derecho, va 0.
+DESFASE_MARCADOR = {10: -90.0, 11: -90.0}
+
 
 def _hipotenusa(dx, dy):
     """sqrt(dx² + dy²), escrito a mano.
@@ -170,9 +204,24 @@ class Mundo:
         self.mi_id = mi_id
         self.id_companero = id_companero
         self.msg = None
+        self._rovers = {}
 
     def actualizar(self, msg):
+        """Guarda el mensaje y deja los rovers ya corregidos, indexados por ID.
+
+        La corrección del marcador (DESFASE_MARCADOR) se aplica UNA vez por
+        mensaje y sobre una copia: el diccionario del mensaje no se toca. En
+        el simulador el mismo mensaje lo leen los dos robots, y corregirlo en
+        el lugar lo corregiría dos veces.
+        """
         self.msg = msg
+        self._rovers = {}
+        for r in msg["rovers"]:
+            d = DESFASE_MARCADOR.get(r["id"], 0.0)
+            if d:
+                r = dict(r)
+                r["theta"] = (r["theta"] + d) % 360.0
+            self._rovers[r["id"]] = r
 
     # --- estado de la ronda ---
 
@@ -226,11 +275,11 @@ class Mundo:
         mensajes: si un rover se tapa un instante, el que estaba primero pasa
         a ser otro. Buscar por índice es el error que funciona en la compu y
         falla en la cancha.
+
+        El theta que devuelve es el del FRENTE del robot, no el del marcador:
+        ver DESFASE_MARCADOR.
         """
-        for r in self.msg["rovers"]:
-            if r["id"] == id_:
-                return r
-        return None
+        return self._rovers.get(id_)
 
     def yo(self):
         """Mi pose, SOLO si es fresca.

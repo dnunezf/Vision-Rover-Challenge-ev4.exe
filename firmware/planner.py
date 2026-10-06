@@ -101,6 +101,67 @@ def punto_aproximacion(cubo, depot, grid=None):
 # Costo de una tarea
 # --------------------------------------------------------------------------
 
+# --------------------------------------------------------------------------
+# Dónde estacionar cuando ya no queda nada que hacer
+# --------------------------------------------------------------------------
+# [MEDIDO 5-oct-2026, simulador a dificultad 0.8] El robot que terminaba su
+# parte se quedaba parado donde había entregado el último cubo: al lado de
+# una zona, que es justo por donde pasan los empujes. En las rondas que se
+# perdían, estaba a menos de 2 celdas de la línea de empuje del cubo que le
+# faltaba al compañero, y el compañero le cedía el paso, volvía, le cedía
+# otra vez... para siempre.
+#
+# Se estaciona en una de las cuatro esquinas, metida hacia adentro: la que
+# queda más lejos de todo el trabajo pendiente. Las zonas están en el medio
+# de los lados, así que las esquinas casi nunca quedan en el camino.
+#
+# 7.5 celdas desde el borde: el robot mide ~2.9 de radio y el marcador de la
+# esquina ~2.5. Más cerca, el robot podría tapar el marcador, y sin cuatro
+# esquinas la visión pierde las coordenadas de TODA la cancha.
+RETIRO_ESQUINA = 7.5   # celdas
+
+
+def _distancia_a_tramo(px, py, ax, ay, bx, by):
+    """Distancia del punto P al segmento AB."""
+    dx, dy = bx - ax, by - ay
+    largo2 = dx * dx + dy * dy
+    if largo2 < 1e-9:
+        return world.distancia(px, py, ax, ay)
+    t = ((px - ax) * dx + (py - ay) * dy) / largo2
+    t = max(0.0, min(1.0, t))
+    return world.distancia(px, py, ax + t * dx, ay + t * dy)
+
+
+def lugar_para_estacionar(mundo):
+    """La esquina más lejana de los empujes pendientes, o None si no hay.
+
+    Un empuje pendiente ocupa el tramo que va de su punto de aproximación a
+    su zona: por ahí pasa el robot que lo hace y por ahí pasa el cubo.
+    """
+    grid = mundo.msg["grid"]
+    tramos = []
+    for color in COLORES:
+        if color not in mundo.pendientes():
+            continue
+        cubo, depot = mundo.cubo(color), mundo.depot(color)
+        if cubo is None or depot is None:
+            continue
+        ac, ar, _ = punto_aproximacion(cubo, depot, grid)
+        tramos.append((ac, ar, depot["col"], depot["row"]))
+    if not tramos:
+        return None
+
+    k = RETIRO_ESQUINA
+    cols, rows = grid["cols"], grid["rows"]
+    esquinas = ((k, k), (cols - k, k), (k, rows - k), (cols - k, rows - k))
+    mejor, mejor_margen = None, -1.0
+    for (ec, er) in esquinas:          # orden fijo: desempata igual siempre
+        margen = min(_distancia_a_tramo(ec, er, *t) for t in tramos)
+        if margen > mejor_margen + 1e-9:
+            mejor, mejor_margen = (ec, er), margen
+    return mejor
+
+
 def _costo_cubo(col, row, cubo, depot):
     """Segundos estimados para entregar un cubo desde una posición dada.
 
@@ -125,9 +186,30 @@ def _costo_cubo(col, row, cubo, depot):
     return t, depot["col"], depot["row"]
 
 
+# No pisar lo que uno mismo ya entregó  (reglamento 7.4 y 8.8)
+#
+# [MEDIDO 5-oct-2026, simulador a dificultad 0.8] En las rondas que
+# terminaban con CERO cubos después de haber entregado alguno, siempre era lo
+# mismo: un robot entregaba su primer cubo y, empujando el segundo, pasaba a
+# 2 celdas del que acababa de dejar y lo sacaba de la zona. Un cubo que sale
+# de su zona se pierde con su tiempo. El orden de los dos cubos se elegía
+# solo por distancia, sin mirar si el segundo empuje cruzaba la primera zona.
+#
+# Ahora un orden así se cobra caro. 6 celdas = radio del robot (2.9) + medio
+# cubo (1.5) + margen: más cerca que eso, el cuerpo del robot lo toca.
+DISTANCIA_PISAR = 6.0         # celdas
+CASTIGO_PISAR_S = 60.0        # lo que cuesta, a ojo, perder y rehacer una entrega
+
+
 def costo_lista(col, row, colores, mundo):
-    """Segundos que tarda un rover en hacer una lista de cubos, en orden."""
+    """Segundos que tarda un rover en hacer una lista de cubos, en orden.
+
+    Incluye el castigo por los órdenes en que un empuje posterior pasaría por
+    encima de una zona que la misma lista ya llenó.
+    """
     total = 0.0
+    grid = mundo.msg["grid"] if mundo.msg else None
+    llenas = []                    # zonas que esta lista ya dejó con su cubo
     for color in colores:
         cubo = mundo.cubo(color)
         depot = mundo.depot(color)
@@ -135,6 +217,13 @@ def costo_lista(col, row, colores, mundo):
             continue
         t, col, row = _costo_cubo(col, row, cubo, depot)
         total += t
+        if llenas:
+            ac, ar, _ = punto_aproximacion(cubo, depot, grid)
+            for (zc, zr) in llenas:
+                if _distancia_a_tramo(zc, zr, ac, ar,
+                                      depot["col"], depot["row"]) < DISTANCIA_PISAR:
+                    total += CASTIGO_PISAR_S
+        llenas.append((depot["col"], depot["row"]))
     return total
 
 
@@ -177,6 +266,25 @@ def _permutaciones(lista):
     return salida
 
 
+# Cuánto tiempo sin ver al compañero antes de darlo por AUSENTE y hacer su
+# parte. Más corto, un parpadeo de la cámara haría que los dos fueran por el
+# mismo cubo; más largo, un robot muerto en el torneo se lleva minutos de
+# trabajo del otro. El domingo hubo huecos de detección de hasta 19 s con el
+# robot VIVO, así que 5 s no lo cubre todo — pero tapado más de eso ya no se
+# sabe dónde está, y esperarlo cuesta más que arriesgar un cubo compartido.
+EDAD_COMPANERO_AUSENTE_MS = 5000
+
+
+def _mejor_orden(pos, colores, mundo):
+    """El orden más rápido para hacer todos esos cubos uno solo."""
+    mejor, mejor_t = [], None
+    for orden in _permutaciones(colores):
+        t = costo_lista(pos["col"], pos["row"], orden, mundo)
+        if mejor_t is None or t < mejor_t - 1e-9:
+            mejor, mejor_t = list(orden), t
+    return mejor
+
+
 def repartir(mundo):
     """Devuelve {id_rover: [colores en orden]} minimizando el MAKESPAN.
 
@@ -197,12 +305,28 @@ def repartir(mundo):
     if yo is None:
         return {mundo.mi_id: [], mundo.id_companero: []}
 
-    otro = mundo.companero()
-    if otro is None:
-        # Si la cámara no ve al compañero en este cuadro, asumimos que está en
-        # la salida. Es mejor que dejarlo fuera del reparto y cargarnos todo.
-        otro = {"col": mundo.msg["start"]["col"],
-                "row": mundo.msg["start"]["row"]}
+    # ------------------------------------------------------------------
+    # ¿HAY COMPAÑERO?
+    # ------------------------------------------------------------------
+    # Antes, si la cámara no veía al compañero, se lo suponía parado en la
+    # salida y se le seguían asignando cubos. Con un robot solo en la cancha
+    # —o con el otro sin batería en pleno torneo— eso dejaba cubos asignados a
+    # un robot que no existe: el que quedaba entregaba su parte, se ponía en
+    # LISTO y los demás cubos se quedaban en la cancha. Medido el 5-oct:
+    #     solo el 10 en la cancha -> {10: ['blue'], 11: ['green', 'red']}
+    #
+    # Ahora hay dos casos distintos:
+    #   - tapado un rato (menos de EDAD_COMPANERO_AUSENTE_MS): sigue en el
+    #     reparto, en su ÚLTIMA posición conocida. Sacarlo por un parpadeo de
+    #     la cámara haría que los dos fueran por el mismo cubo.
+    #   - ausente (no aparece, o lleva más que eso sin verse): fuera del
+    #     reparto. Hago yo todo lo que queda.
+    otro = mundo.rover(mundo.id_companero)
+    hay_companero = (otro is not None and
+                     otro.get("age_ms", 0) <= EDAD_COMPANERO_AUSENTE_MS)
+    if not hay_companero:
+        return {mundo.mi_id: _mejor_orden(yo, pendientes, mundo),
+                mundo.id_companero: []}
 
     # ------------------------------------------------------------------
     # ORDEN CANÓNICO POR ID
@@ -227,12 +351,11 @@ def repartir(mundo):
     # O sea que un reparto 3-0 no es una optimización agresiva: es un intento
     # INVÁLIDO. Aunque entren los tres cubos, no cuenta.
     #
-    # Por eso, mientras queden dos o más cubos y el compañero esté a la vista,
-    # se descartan los repartos que dejen a alguien sin nada. Si el compañero
-    # NO está a la vista —se quedó sin batería, se desconectó— la restricción
-    # se levanta: tres cubos entregados por uno solo valen más que cero, y a
+    # Por eso, mientras queden dos o más cubos, se descartan los repartos que
+    # dejen a alguien sin nada. Si el compañero está AUSENTE ni se llega acá
+    # (ver arriba): tres cubos entregados por uno solo valen más que cero, y a
     # esa altura el intento ya estaba perdido de todas formas.
-    exigir_ambos = len(pendientes) >= 2 and mundo.companero() is not None
+    exigir_ambos = len(pendientes) >= 2
 
     mejor = None
 

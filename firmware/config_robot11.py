@@ -33,7 +33,7 @@ WIFI_PASSWORD = "PONER_AQUI"
 #
 # Medido el 3-oct con 'ip addr' en la laptop de David, interfaz wlp0s20f3.
 # CAMBIA al conectarse a otra red: hay que verificarla antes de cada sesión,
-# y el martes en el torneo va a ser otra.
+# y el MIERCOLES 7 en el torneo va a ser otra.
 VISION_HOST = "192.168.100.3"
 
 # Puerto oficial del contrato. No se toca.

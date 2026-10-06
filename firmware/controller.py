@@ -162,6 +162,8 @@ class Controlador:
         self.postergados = []
         self.pos_retroceso = None
         self.offset_cubo = None
+        self.dir_empuje = None            # hacia dónde se empuja, fijado al empezar
+        self.estacionamiento = None       # a dónde irse cuando no queda nada
         # Detector de atasco: dónde estaba y cuándo, la última vez que me
         # moví de verdad.
         self.pose_testigo = None
@@ -181,6 +183,9 @@ class Controlador:
             self.entrada_estado = ahora_ms
             if estado != EMPUJAR:
                 self.offset_cubo = None
+                self.dir_empuje = None
+            if estado != LISTO:
+                self.estacionamiento = None
 
     def _en_estado_ms(self, ahora_ms):
         return ahora_ms - self.entrada_estado
@@ -513,7 +518,18 @@ class Controlador:
             # o el compañero que se quedó sin batería.
             if planner.mi_objetivo(m, None, self.postergados) is not None:
                 self._ir_a(IR_APROX, ahora_ms)
-            return 0.0, 0.0
+                return 0.0, 0.0
+
+            # Terminé lo mío: salir del camino. Ver planner.lugar_para_estacionar.
+            if self.estacionamiento is None:
+                self.estacionamiento = planner.lugar_para_estacionar(m)
+            if self.estacionamiento is None:
+                return 0.0, 0.0
+            v, w, llegue = self._hacia_punto(
+                self.estacionamiento[0], self.estacionamiento[1], THROTTLE_CRUCERO)
+            if llegue:
+                return 0.0, 0.0
+            return v, w
 
         cubo = m.cubo(self.objetivo) if self.objetivo else None
         depot = m.depot(self.objetivo) if self.objetivo else None
@@ -565,6 +581,13 @@ class Controlador:
 
             if cubo["age_ms"] < EDAD_FRESCA_MS:
                 est_col, est_row = cubo["col"], cubo["row"]     # dato real
+                # Mientras se lo ve, se anota a qué distancia va. Al arrancar
+                # el empuje está a ~6.5 celdas (el punto de aproximación);
+                # cuando el robot lo alcanza y lo tapa, está a ~2. Si se
+                # quedara anotado el 6.5 del comienzo, el cubo "estimado"
+                # iría 4.5 celdas adelantado justo cuando deja de verse.
+                self.offset_cubo = world.distancia(
+                    yo["col"], yo["row"], cubo["col"], cubo["row"])
             else:
                 est_col, est_row = world.adelante(
                     yo["col"], yo["row"], yo["theta"], self.offset_cubo)
@@ -579,7 +602,31 @@ class Controlador:
 
             # Freno cuando el CUBO llegó al centro de la zona, no cuando
             # llegué yo. Pasarme de la línea del borde hace que no cuente.
-            if world.distancia(est_col, est_row, depot["col"], depot["row"]) < TOLERANCIA_ENTREGA:
+            # ¿YA PASÓ EL CENTRO DE LA ZONA?
+            #
+            # [MEDIDO 5-oct-2026, ronda de las 10:22] El robot 11 empujaba el
+            # rojo hacia su zona y la cámara lo perdía a ratos: cada vez que lo
+            # volvía a ver estaba ~6 celdas más adelante. La estimación del
+            # cubo saltó por encima de la ventana de TOLERANCIA_ENTREGA (1
+            # celda) sin caer nunca adentro, así que el robot no frenó: siguió
+            # yendo al centro de la zona con su PROPIO cuerpo, o sea con el
+            # cubo varias celdas más allá, afuera de la zona.
+            #
+            # Así que además de "llegó", se frena si "se pasó": el avance que
+            # le falta al cubo, medido sobre la dirección del empuje fijada al
+            # empezar, ya es cero o negativo. Eso no se puede saltear.
+            if self.dir_empuje is None:
+                dc = depot["col"] - est_col
+                dr = depot["row"] - est_row
+                largo = world.distancia(0.0, 0.0, dc, dr)
+                if largo > 1e-6:
+                    self.dir_empuje = (dc / largo, dr / largo)
+                else:
+                    self.dir_empuje = (0.0, 0.0)
+            le_falta = ((depot["col"] - est_col) * self.dir_empuje[0] +
+                        (depot["row"] - est_row) * self.dir_empuje[1])
+            if (world.distancia(est_col, est_row, depot["col"], depot["row"]) < TOLERANCIA_ENTREGA
+                    or le_falta <= 0.0):
                 self.pos_retroceso = (yo["col"], yo["row"])
                 self._ir_a(RETROCEDER, ahora_ms)
                 return 0.0, 0.0
